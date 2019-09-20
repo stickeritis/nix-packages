@@ -13,6 +13,12 @@ rec {
     cudnn = cudnn_cudatoolkit_10_0;
   };
 
+  models = pkgs.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/models {
+      inherit sticker;
+    }
+  );
+
   sticker = pkgs.callPackage ./pkgs/sticker {
     libtensorflow = libtensorflow_1_14_0;
   };
