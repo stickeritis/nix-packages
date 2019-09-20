@@ -1,34 +1,31 @@
 language: nix
-
 sudo: false
-
 env:
   global:
-    - CACHIX_CACHE=
-    - NUR_REPO=<YOUR_NUR_REPO_NAME_HERE>
-
+  - CACHIX_CACHE=sticker
+  - NUR_REPO=sticker
+  - secure: wev0hKu4bmbT1L7WODPNgR4zvMB8DyQDCkN3Y4vlFTlDsaQFwlb5FD2AcIqCGeDDcBApSnCNXgVQWyC8I5/vO3k0bU8Mm4TPYPrmq9jh5msNnDB8W8ADDMvoqhRW50ePZT0YcssBSDIFdTSUQFkJKtCZey9d9mJgPSR/BjfbQXdIznYyqM3R5dInHmcuMluC/FJjGkRcFIEcc/uGB8eYz59QTdapIAYh3zCWxThkFjDkLehhpEIpDRIi6ZUXkEc0YIsfwT6IS+aL9QEgR2J1nGzrIV7xj1uLIJG0yIYqmi2ztN+BiTu4kOAVtjYN81C5RfpPHp3zSLuEW8XWAOlFCaqIynooQFL3jbXritqN1RTvfRR5dWo05QiVgrjwxXSjEhwWPC4G8aWtbah5WRpZBYPJzqQQJiERRytNXzBwNeb8HifxUKfN4OIZZkg/gFSd15vuS/yVfFl2rEvKCmJkPqIRUNpG+qCpNfpmCA5m+MhPxI333XYLiVy9M6BtthJybC+zQn5AT962DHUGS+bQMK/tf/qRBQ9sAG679CVOl0SvBiLto8LB6p/sbujMrOHvtHcJEpeLXuy3hwKM5QL5JTmII5ls/sbd2yqFVE/0ypzrW6dIjAUhCxdDYmSPyYhhQIYuZokWd5KIbThJHP2gh4RAingfzRgDGMOxUSK8yeI=
 matrix:
   include:
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
-    - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
-
+  - env: NIX_CHANNEL=https://nixos.org/channels/nixpkgs-unstable
+  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
+  - env: NIX_CHANNEL=https://nixos.org/channels/nixos-19.03
 install:
- - nix --version
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
- - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
-
+- nix --version
+- sudo mkdir /etc/nix && echo 'sandbox = true' | sudo tee /etc/nix/nix.conf
+- if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
+- if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install;
+  fi
+- if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
+- nix-channel --add "${NIX_CHANNEL}" nixpkgs
+- travis_retry nix-channel --update
 script:
- - nix-build ci.nix -A buildOutputs
- - nix eval -f default.nix 'lib'
- - nix eval -f default.nix 'modules'
- - nix eval -f default.nix 'overlays'
-
+- nix-build ci.nix -A buildOutputs
+- nix eval -f default.nix 'lib'
+- nix eval -f default.nix 'modules'
+- nix eval -f default.nix 'overlays'
 after_success:
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-  - if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
-
+- if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push
+  "${CACHIX_CACHE}"; fi
+- if [ "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+  curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
