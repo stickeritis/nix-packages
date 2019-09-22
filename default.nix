@@ -6,6 +6,10 @@ rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  dockerImages = pkgs.callPackage ./docker-images {
+    inherit models;
+  };
+
   # Pin Tensorflow to our preferred version.
   libtensorflow_1_14_0 = with pkgs; callPackage ./pkgs/libtensorflow {
     inherit (linuxPackages) nvidia_x11;
