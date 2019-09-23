@@ -12,21 +12,24 @@
 , libtensorflow }:
 
 let
-  src = fetchFromGitHub {
+  sticker_src = fetchFromGitHub {
     owner = "danieldk";
     repo = "sticker";
-    rev = "0.6.1";
-    sha256 = "02s2nh1vvr8cdpr8a9v6203nwjjylcywa23q0zn52lqr5la3vgzl";
+    rev = "0.7.0";
+    sha256 = "13dqziasck0fw20gqm09ky52g5fmp7lil2mxgr2p4c2ad0wgkpkk";
   };
   cargo_nix = callPackage ./sticker.nix {};
 in cargo_nix.workspaceMembers.sticker-utils.build.override {
   crateOverrides = defaultCrateOverrides // {
-    sticker = attr: { src = "${src}/sticker"; };
+    sticker = attr: { src = "${sticker_src}/sticker"; };
 
-    sticker-tf-proto = attr: { src = "${src}/sticker-tf-proto"; };
+    sticker-tf-proto = attr: { src = "${sticker_src}/sticker-tf-proto"; };
 
-    sticker-utils = attr: {
-      src = "${src}/sticker-utils";
+    sticker-utils = attr: rec {
+      pname = "sticker";
+      name = "${pname}-${attr.version}";
+
+      src = "${sticker_src}/sticker-utils";
 
       buildInputs = stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
