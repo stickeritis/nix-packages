@@ -22,6 +22,17 @@ let
     sha256 = "0b75bpsrfxh173ssa91pql3xmvd7x9f2qwc6rv27jj6pxlhayfql";
   };
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
+  de-deps-ud-large = stickerModel {
+    inherit stdenvNoCC fetchurl makeWrapper sticker;
+
+    modelName = "de-deps-ud-large";
+    version = "20190926";
+    sha256 = "15jg0vkpd55833qbykzg1pp7kh34sm59vrvg07rz3cjg9cks8nw2";
+
+    wordEmbeds = deWordEmbeds;
+    tagEmbeds = deUdSttsTagEmbeds;
+  };
+
   de-deps-ud-small = stickerModel {
     inherit stdenvNoCC fetchurl makeWrapper sticker;
 
