@@ -44,6 +44,17 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
     tagEmbeds = deUdSttsTagEmbeds;
   };
 
+  de-ner-ud-small = stickerModel {
+    inherit stdenvNoCC fetchurl makeWrapper sticker;
+
+    modelName = "de-ner-ud-small";
+    version = "20190928";
+    sha256 = "01bay1bxhap9mmwmjgfr17z1w8f05h3d16czf9vl3b3r3a2b0q23";
+
+    wordEmbeds = deWordEmbeds;
+    tagEmbeds = deUdSttsTagEmbeds;
+  };
+
   de-pos-ud = stickerModel {
     inherit stdenvNoCC fetchurl makeWrapper sticker;
 
