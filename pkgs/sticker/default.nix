@@ -15,8 +15,8 @@ let
   sticker_src = fetchFromGitHub {
     owner = "danieldk";
     repo = "sticker";
-    rev = "0.7.0";
-    sha256 = "13dqziasck0fw20gqm09ky52g5fmp7lil2mxgr2p4c2ad0wgkpkk";
+    rev = "0.8.0";
+    sha256 = "0f1isdzk4v2d97lif9q6j3ls1dwd632vadn8s4pgziqximwbhcxx";
   };
   cargo_nix = callPackage ./sticker.nix {};
 in cargo_nix.workspaceMembers.sticker-utils.build.override {
