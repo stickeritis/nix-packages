@@ -25,6 +25,10 @@ let
     name = "nl-structgram-20190623-opq";
     sha256 = "1byvg8ach98y7jmikjkcqghxzby8nq2bqxcs8c137h0w8dm7nzbx";
   };
+  nlUdTagEmbeds = fetchEmbeddings {
+    name = "nl-structgram-tags-20190623";
+    sha256 = "0ijjzl92wsa5p32207w6p2saxshrwby4c6s7fhz9jx9jlicq23w2";
+  };
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   de-deps-ud-large = stickerModel {
     inherit stdenvNoCC fetchurl makeWrapper sticker;
@@ -67,6 +71,17 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
     sha256 = "163himdn8l1ds6znf1girx0hbplbc8i9z9lmqdwvxsj9d9338svv";
 
     wordEmbeds = deWordEmbeds;
+  };
+
+  nl-deps-ud-large = stickerModel {
+    inherit stdenvNoCC fetchurl makeWrapper sticker;
+
+    modelName = "nl-deps-ud-large";
+    version = "20190929";
+    sha256 = "15rbmxhkb5pns3djw27dlcqxwgadhdgzadl6ph3n30pgq53x8m3b";
+
+    wordEmbeds = nlWordEmbeds;
+    tagEmbeds = nlUdTagEmbeds;
   };
 
   nl-pos-ud = stickerModel {
