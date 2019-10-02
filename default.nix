@@ -23,6 +23,10 @@ rec {
     }
   );
 
+  python3Packages = pkgs.recurseIntoAttrs (
+    pkgs.python3Packages.callPackage ./pkgs/python-modules {}
+  );
+
   sticker = pkgs.callPackage ./pkgs/sticker {
     libtensorflow = libtensorflow_1_14_0;
   };
