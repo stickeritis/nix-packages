@@ -1,0 +1,5 @@
+{ callPackage }:
+
+{
+  sticker = callPackage ./sticker {};
+}
