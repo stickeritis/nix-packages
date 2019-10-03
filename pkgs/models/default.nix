@@ -73,6 +73,18 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
     wordEmbeds = deWordEmbeds;
   };
 
+  de-topo-ud-small = stickerModel {
+    inherit stdenvNoCC fetchurl makeWrapper sticker;
+
+    modelName = "de-topo-ud-small";
+    version = "20191002";
+    sha256 = "0d1xbyd2pfl29yz4rix952xnbc09nvhyjrfnmjzzqhx1dp253k96";
+
+    wordEmbeds = deWordEmbeds;
+    tagEmbeds = deUdSttsTagEmbeds;
+  };
+
+
   nl-deps-ud-large = stickerModel {
     inherit stdenvNoCC fetchurl makeWrapper sticker;
 
