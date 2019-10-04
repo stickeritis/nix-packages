@@ -96,6 +96,18 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
     tagEmbeds = nlUdTagEmbeds;
   };
 
+  nl-ner-ud-small = stickerModel {
+    inherit stdenvNoCC fetchurl makeWrapper sticker;
+
+    modelName = "nl-ner-ud-small";
+    version = "20191003";
+    sha256 = "1mbbc7m2r3p6zvlc7sszr3jqjmgimn4x0as39j0qllqsa540hy9c";
+
+    wordEmbeds = nlWordEmbeds;
+    tagEmbeds = nlUdTagEmbeds;
+  };
+
+
   nl-pos-ud = stickerModel {
     inherit stdenvNoCC fetchurl makeWrapper sticker;
 
