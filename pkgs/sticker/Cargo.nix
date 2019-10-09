@@ -22,9 +22,9 @@ rec {
   # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
   workspaceMembers = {
     "sticker" = {
-      packageId = "sticker 0.8.0 (path+file:///home/daniel/git/sticker/sticker)";
+      packageId = "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)";
       build = buildRustCrateWithFeatures {
-        packageId = "sticker 0.8.0 (path+file:///home/daniel/git/sticker/sticker)";
+        packageId = "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)";
         features = rootFeatures;
       };
     };
@@ -36,9 +36,9 @@ rec {
       };
     };
     "sticker-utils" = {
-      packageId = "sticker-utils 0.8.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
+      packageId = "sticker-utils 0.9.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
       build = buildRustCrateWithFeatures {
-        packageId = "sticker-utils 0.8.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
+        packageId = "sticker-utils 0.9.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
         features = rootFeatures;
       };
     };
@@ -1603,6 +1603,56 @@ rec {
           "with-serde" = [ "serde" "serde_derive" ];
         };
       };
+    "protobuf-codegen 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)"
+      = rec {
+        crateName = "protobuf-codegen";
+        version = "2.8.0";
+        edition = "2015";
+        # Hack to suppress building binaries
+        crateBin = [{name = ","; path = ",";}];
+        sha256 = "0mhqy6sd86gf6cccdfkh3b26kw92z5bfg86xw1h8vaii7zhzc6f0";
+        authors = [
+          "Stepan Koltsov <stepan.koltsov@gmail.com>"
+        ];
+        dependencies = {
+          "protobuf" = "protobuf 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
+        };
+        features = {
+        };
+      };
+    "protoc 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)"
+      = rec {
+        crateName = "protoc";
+        version = "2.8.0";
+        edition = "2015";
+        sha256 = "06zdf4cp48135pg9qhjbi2h1sh0hbravxqh29f977z3p2b69s75q";
+        authors = [
+          "Stepan Koltsov <stepan.koltsov@gmail.com>"
+        ];
+        dependencies = {
+          "log" = "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)";
+        };
+        features = {
+        };
+      };
+    "protoc-rust 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)"
+      = rec {
+        crateName = "protoc-rust";
+        version = "2.8.0";
+        edition = "2015";
+        sha256 = "0064zq1rh4h1840hpgn687pqagkl2f28hp3hw76nlnn9ds903amb";
+        authors = [
+          "Stepan Koltsov <stepan.koltsov@gmail.com>"
+        ];
+        dependencies = {
+          "protobuf" = "protobuf 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
+          "protobuf-codegen" = "protobuf-codegen 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
+          "protoc" = "protoc 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
+          "tempfile" = "tempfile 3.1.0 (registry+https://github.com/rust-lang/crates.io-index)";
+        };
+        features = {
+        };
+      };
     "quote 0.6.13 (registry+https://github.com/rust-lang/crates.io-index)"
       = rec {
         crateName = "quote";
@@ -1948,6 +1998,25 @@ rec {
         };
         resolvedDefaultFeatures = [ "unicode-age" "unicode-bool" "unicode-case" "unicode-gencat" "unicode-perl" "unicode-script" "unicode-segment" ];
       };
+    "remove_dir_all 0.5.2 (registry+https://github.com/rust-lang/crates.io-index)"
+      = rec {
+        crateName = "remove_dir_all";
+        version = "0.5.2";
+        edition = "2015";
+        sha256 = "04sxg2ppvxiljc2i13bwvpbi540rf9d2a89cq0wmqf9pjvr3a1wm";
+        authors = [
+          "Aaronepower <theaaronepower@gmail.com>"
+        ];
+        dependencies = {
+          "winapi" = {
+            packageId = "winapi 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)";
+            target = target."windows";
+            features = [ "std" "errhandlingapi" "winerror" "fileapi" "winbase" ];
+          };
+        };
+        features = {
+        };
+      };
     "rustc-demangle 0.1.16 (registry+https://github.com/rust-lang/crates.io-index)"
       = rec {
         crateName = "rustc-demangle";
@@ -2169,10 +2238,10 @@ rec {
         features = {
         };
       };
-    "sticker 0.8.0 (path+file:///home/daniel/git/sticker/sticker)"
+    "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)"
       = rec {
         crateName = "sticker";
-        version = "0.8.0";
+        version = "0.9.0";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker);
         authors = [
@@ -2208,14 +2277,21 @@ rec {
         dependencies = {
           "protobuf" = "protobuf 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
         };
+        buildDependencies = {
+          "protoc-rust" = {
+            packageId = "protoc-rust 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
+            optional = true;
+          };
+        };
         features = {
           "proto-compile" = [ "protoc-rust" ];
         };
+        resolvedDefaultFeatures = [ "proto-compile" "protoc-rust" ];
       };
-    "sticker-utils 0.8.0 (path+file:///home/daniel/git/sticker/sticker-utils)"
+    "sticker-utils 0.9.0 (path+file:///home/daniel/git/sticker/sticker-utils)"
       = rec {
         crateName = "sticker-utils";
-        version = "0.8.0";
+        version = "0.9.0";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker-utils);
         authors = [
@@ -2235,7 +2311,7 @@ rec {
           "serde_cbor" = "serde_cbor 0.10.1 (registry+https://github.com/rust-lang/crates.io-index)";
           "serde_derive" = "serde_derive 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)";
           "stdinout" = "stdinout 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)";
-          "sticker" = "sticker 0.8.0 (path+file:///home/daniel/git/sticker/sticker)";
+          "sticker" = "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)";
           "tensorflow" = "tensorflow 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)";
           "threadpool" = "threadpool 1.7.1 (registry+https://github.com/rust-lang/crates.io-index)";
           "toml" = "toml 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)";
@@ -2361,6 +2437,39 @@ rec {
           "default" = [ "xattr" ];
         };
         resolvedDefaultFeatures = [ "default" "xattr" ];
+      };
+    "tempfile 3.1.0 (registry+https://github.com/rust-lang/crates.io-index)"
+      = rec {
+        crateName = "tempfile";
+        version = "3.1.0";
+        edition = "2018";
+        sha256 = "1r7ykxw90p5hm1g46i8ia33j5iwl3q252kbb6b074qhdav3sqndk";
+        authors = [
+          "Steven Allen <steven@stebalien.com>"
+          "The Rust Project Developers"
+          "Ashley Mannix <ashleymannix@live.com.au>"
+          "Jason White <jasonaw0@gmail.com>"
+        ];
+        dependencies = {
+          "cfg-if" = "cfg-if 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)";
+          "libc" = {
+            packageId = "libc 0.2.62 (registry+https://github.com/rust-lang/crates.io-index)";
+            target = target."unix";
+          };
+          "rand" = "rand 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)";
+          "redox_syscall" = {
+            packageId = "redox_syscall 0.1.56 (registry+https://github.com/rust-lang/crates.io-index)";
+            target = (target."os" == "redox");
+          };
+          "remove_dir_all" = "remove_dir_all 0.5.2 (registry+https://github.com/rust-lang/crates.io-index)";
+          "winapi" = {
+            packageId = "winapi 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)";
+            target = target."windows";
+            features = [ "fileapi" "handleapi" "winbase" ];
+          };
+        };
+        features = {
+        };
       };
     "tensorflow 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)"
       = rec {
