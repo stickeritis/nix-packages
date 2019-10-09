@@ -1,0 +1,49 @@
+{ lib
+, stdenvNoCC
+, makeWrapper
+
+, sticker
+}:
+
+{
+  # The pipeline name.
+  name
+
+  # The pipeline version.
+, version
+
+  # The pipeline models.
+, models
+}:
+
+assert (builtins.isList models) && models != [];
+assert builtins.all (m: m ? modelName) models;
+
+let
+  modelToConfig = model: "${model.model}/share/sticker/models/${model.modelName}/sticker.conf";
+  modelFlags = lib.concatMapStrings (model: " --add-flags ${modelToConfig model}") models;
+in
+stdenvNoCC.mkDerivation rec {
+  inherit version;
+
+  pname = "sticker-pipeline-${name}";
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  dontUnpack = true;
+
+  installPhase = ''
+    makeWrapper ${sticker}/bin/sticker-tag $out/bin/sticker-tag-pipeline-${name} \
+      ${modelFlags}
+    makeWrapper ${sticker}/bin/sticker-server $out/bin/sticker-server-pipeline-${name} \
+      ${modelFlags}
+  '';
+
+  meta = with stdenvNoCC.lib; {
+      homepage = https://github.com/danieldk/sticker/;
+      description = "Sticker ${name} pipeline";
+      license = licenses.unfreeRedistributable;
+      maintainers = with maintainers; [ danieldk ];
+      platforms = platforms.unix;
+  };
+}

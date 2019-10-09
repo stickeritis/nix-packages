@@ -21,6 +21,8 @@
 }:
 
 rec {
+  inherit modelName;
+
   model = stdenvNoCC.mkDerivation rec {
     inherit version;
 
