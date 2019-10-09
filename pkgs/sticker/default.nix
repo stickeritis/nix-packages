@@ -15,10 +15,10 @@ let
   sticker_src = fetchFromGitHub {
     owner = "danieldk";
     repo = "sticker";
-    rev = "0.8.0";
-    sha256 = "0f1isdzk4v2d97lif9q6j3ls1dwd632vadn8s4pgziqximwbhcxx";
+    rev = "0.9.0";
+    sha256 = "0lxpq2piq98vxis6wjw5882zx2y6wqvbchngzjsvvgz3n212zprd";
   };
-  cargo_nix = callPackage ./sticker.nix {};
+  cargo_nix = callPackage ./Cargo.nix {};
 in cargo_nix.workspaceMembers.sticker-utils.build.override {
   crateOverrides = defaultCrateOverrides // {
     sticker = attr: { src = "${sticker_src}/sticker"; };
