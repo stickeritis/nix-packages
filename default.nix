@@ -7,7 +7,7 @@ rec {
   overlays = import ./overlays;
 
   dockerImages = pkgs.callPackage ./docker-images {
-    inherit models;
+    inherit models pipelines;
   };
 
   # Pin Tensorflow to our preferred version.
