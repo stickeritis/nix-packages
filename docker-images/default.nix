@@ -4,6 +4,9 @@
   # Sticker model set.
 , models
 
+  # Sticker pipeline set.
+, pipelines
+
   # Docker image name.
 , imageName ? "danieldk/sticker"
 
@@ -21,6 +24,14 @@ let
       contents = wrapper;
     };
   isModel = _: v: builtins.isAttrs v && v ? "wrapper" && v ? "model";
+  isPipeline = _: v: lib.isDerivation v;
 in
-builtins.mapAttrs (n: v: stickerImage n v.wrapper.version v.wrapper)
-  (lib.filterAttrs isModel models)
+{
+  # Model Docker images
+  models = builtins.mapAttrs (n: v: stickerImage n v.wrapper.version v.wrapper)
+    (lib.filterAttrs isModel models);
+
+  # Pipeline Docker images
+  pipelines = builtins.mapAttrs (n: v: stickerImage "pipeline-${n}" v.version v)
+    (lib.filterAttrs isPipeline pipelines);
+}
