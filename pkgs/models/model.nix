@@ -70,9 +70,11 @@ rec {
     unpackPhase = "true";
 
     installPhase = ''
-      makeWrapper ${sticker}/bin/sticker-tag $out/bin/sticker-tag-${modelName} \
+      makeWrapper ${sticker}/bin/sticker $out/bin/sticker-tag-${modelName} \
+        --add-flags tag \
         --add-flags "${model}/share/sticker/models/${modelName}/sticker.conf"
-      makeWrapper ${sticker}/bin/sticker-server $out/bin/sticker-server-${modelName} \
+      makeWrapper ${sticker}/bin/sticker $out/bin/sticker-server-${modelName} \
+        --add-flags server \
         --add-flags "${model}/share/sticker/models/${modelName}/sticker.conf"
     '';
 
