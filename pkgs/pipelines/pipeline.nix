@@ -33,9 +33,11 @@ stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
 
   installPhase = ''
-    makeWrapper ${sticker}/bin/sticker-tag $out/bin/sticker-tag-pipeline-${name} \
+    makeWrapper ${sticker}/bin/sticker $out/bin/sticker-tag-pipeline-${name} \
+      --add-flags tag \
       ${modelFlags}
-    makeWrapper ${sticker}/bin/sticker-server $out/bin/sticker-server-pipeline-${name} \
+    makeWrapper ${sticker}/bin/sticker $out/bin/sticker-server-pipeline-${name} \
+      --add-flags server \
       ${modelFlags}
   '';
 

@@ -1,9 +1,12 @@
-{ stdenv
-, callPackage
+{ callPackage
+, lib
+, stdenv
+
 , defaultCrateOverrides
 , fetchFromGitHub
 
 # Native build inputs
+, installShellFiles ? null # Available in 19.09 and later.
 , pkgconfig
 
 # Build inputs
@@ -15,8 +18,8 @@ let
   sticker_src = fetchFromGitHub {
     owner = "danieldk";
     repo = "sticker";
-    rev = "0.9.0";
-    sha256 = "0lxpq2piq98vxis6wjw5882zx2y6wqvbchngzjsvvgz3n212zprd";
+    rev = "0.10.0";
+    sha256 = "1bxhinx2jcjgcmgaw9h587ma6mmy9aizh3b8y5lwlhwgz6m0xppd";
   };
   cargo_nix = callPackage ./Cargo.nix {};
 in cargo_nix.workspaceMembers.sticker-utils.build.override {
@@ -31,14 +34,27 @@ in cargo_nix.workspaceMembers.sticker-utils.build.override {
 
       src = "${sticker_src}/sticker-utils";
 
+      nativeBuildInputs = lib.optional (!isNull installShellFiles) installShellFiles;
+
       buildInputs = stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
+      postBuild = ''
+        for shell in bash fish zsh; do
+          target/bin/sticker-utils completions $shell > completions.$shell
+        done
+      '';
+
       postInstall = ''
+        mv $out/bin/sticker-utils $out/bin/sticker
+
         # We do not care for sticker-utils as a library crate. Removing
         # the library reduces the number of dependencies.
         rm -rf $out/lib
 
         rm $out/bin/*.d
+      '' + lib.optionalString (!isNull installShellFiles) ''
+        # Install shell completions
+        installShellCompletion completions.{bash,fish,zsh}
       '';
 
       meta = with stdenv.lib; {

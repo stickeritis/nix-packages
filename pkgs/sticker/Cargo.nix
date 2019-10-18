@@ -22,23 +22,23 @@ rec {
   # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
   workspaceMembers = {
     "sticker" = {
-      packageId = "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)";
+      packageId = "sticker 0.10.0 (path+file:///home/daniel/git/sticker/sticker)";
       build = buildRustCrateWithFeatures {
-        packageId = "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)";
+        packageId = "sticker 0.10.0 (path+file:///home/daniel/git/sticker/sticker)";
         features = rootFeatures;
       };
     };
     "sticker-tf-proto" = {
-      packageId = "sticker-tf-proto 0.7.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)";
+      packageId = "sticker-tf-proto 0.10.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)";
       build = buildRustCrateWithFeatures {
-        packageId = "sticker-tf-proto 0.7.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)";
+        packageId = "sticker-tf-proto 0.10.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)";
         features = rootFeatures;
       };
     };
     "sticker-utils" = {
-      packageId = "sticker-utils 0.9.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
+      packageId = "sticker-utils 0.10.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
       build = buildRustCrateWithFeatures {
-        packageId = "sticker-utils 0.9.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
+        packageId = "sticker-utils 0.10.0 (path+file:///home/daniel/git/sticker/sticker-utils)";
         features = rootFeatures;
       };
     };
@@ -2238,10 +2238,10 @@ rec {
         features = {
         };
       };
-    "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)"
+    "sticker 0.10.0 (path+file:///home/daniel/git/sticker/sticker)"
       = rec {
         crateName = "sticker";
-        version = "0.9.0";
+        version = "0.10.0";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker);
         authors = [
@@ -2258,17 +2258,19 @@ rec {
           "petgraph" = "petgraph 0.4.13 (registry+https://github.com/rust-lang/crates.io-index)";
           "protobuf" = "protobuf 2.8.0 (registry+https://github.com/rust-lang/crates.io-index)";
           "serde" = "serde 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)";
+          "serde_cbor" = "serde_cbor 0.10.1 (registry+https://github.com/rust-lang/crates.io-index)";
           "serde_derive" = "serde_derive 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)";
-          "sticker-tf-proto" = "sticker-tf-proto 0.7.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)";
+          "sticker-tf-proto" = "sticker-tf-proto 0.10.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)";
           "tensorflow" = "tensorflow 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)";
+          "toml" = "toml 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)";
         };
         features = {
         };
       };
-    "sticker-tf-proto 0.7.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)"
+    "sticker-tf-proto 0.10.0 (path+file:///home/daniel/git/sticker/sticker-tf-proto)"
       = rec {
         crateName = "sticker-tf-proto";
-        version = "0.7.0";
+        version = "0.10.0";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker-tf-proto);
         authors = [
@@ -2288,10 +2290,10 @@ rec {
         };
         resolvedDefaultFeatures = [ "proto-compile" "protoc-rust" ];
       };
-    "sticker-utils 0.9.0 (path+file:///home/daniel/git/sticker/sticker-utils)"
+    "sticker-utils 0.10.0 (path+file:///home/daniel/git/sticker/sticker-utils)"
       = rec {
         crateName = "sticker-utils";
-        version = "0.9.0";
+        version = "0.10.0";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker-utils);
         authors = [
@@ -2311,7 +2313,7 @@ rec {
           "serde_cbor" = "serde_cbor 0.10.1 (registry+https://github.com/rust-lang/crates.io-index)";
           "serde_derive" = "serde_derive 1.0.101 (registry+https://github.com/rust-lang/crates.io-index)";
           "stdinout" = "stdinout 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)";
-          "sticker" = "sticker 0.9.0 (path+file:///home/daniel/git/sticker/sticker)";
+          "sticker" = "sticker 0.10.0 (path+file:///home/daniel/git/sticker/sticker)";
           "tensorflow" = "tensorflow 0.13.0 (registry+https://github.com/rust-lang/crates.io-index)";
           "threadpool" = "threadpool 1.7.1 (registry+https://github.com/rust-lang/crates.io-index)";
           "toml" = "toml 0.5.3 (registry+https://github.com/rust-lang/crates.io-index)";
