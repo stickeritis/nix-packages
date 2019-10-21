@@ -21,17 +21,17 @@ let
   rustPlatform = callPackage ./rust-platform-nightly.nix {};
 in (rustPlatform "2019-07-30").buildRustPackage rec {
   pname = "sticker";
-  version = "0.1.0";
+  version = "0.2.0";
   name = "${python.libPrefix}-${pname}-${version}";
 
   src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker-python";
     rev = version;
-    sha256 = "1ix90xhk4s2z1xc6mvwvqmghhwdphgxk2yyq2kgdc1lxhwmzc9sc";
+    sha256 = "14jmy7fjnr6456wpbipckgvi8c256njnm2bmqz3dzg22ly3d9nd1";
   };
 
-  cargoSha256 = "1fzixrwxdg7ni49wwqcljgigr7xbspl5xmwbsks68cviv4ci7589";
+  cargoSha256 = "1fhjnahqaf6a8b3dim1nkzfnfc18yhh2i1jah0k0xw365nqiag4h";
 
   nativeBuildInputs = [ maturin pkgs.pkgconfig ];
 
