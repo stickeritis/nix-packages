@@ -6,6 +6,7 @@
 
   # Native build inputs
 , maturin
+, pip
 
   # Build inputs
 , darwin
@@ -33,7 +34,7 @@ in (rustPlatform "2019-07-30").buildRustPackage rec {
 
   cargoSha256 = "1fhjnahqaf6a8b3dim1nkzfnfc18yhh2i1jah0k0xw365nqiag4h";
 
-  nativeBuildInputs = [ maturin pkgs.pkgconfig ];
+  nativeBuildInputs = [ maturin pkgs.pkgconfig pip ];
 
   buildInputs = [ pkgs.openssl python libtensorflow-bin ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
