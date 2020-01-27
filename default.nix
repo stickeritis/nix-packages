@@ -1,6 +1,9 @@
 { pkgs ? import <nixpkgs> {} }:
 
-rec {
+let
+  sources = import ./nix/sources.nix;
+  danieldk = pkgs.callPackage sources.danieldk {};
+in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
@@ -36,5 +39,17 @@ rec {
   sticker = pkgs.callPackage ./pkgs/sticker {
     libtensorflow = libtensorflow_1_14_0;
   };
-}
 
+  sticker2 =
+    let
+      # PyTorch 1.4.0 does not work with gcc 9.x. The stdenv ovveride
+      # should be removed after the next PyTorch dot release.
+      #
+      # https://github.com/pytorch/pytorch/issues/32277
+      stdenv = if pkgs.stdenv.cc.isGNU then pkgs.gcc8Stdenv else pkgs.stdenv;
+    in pkgs.callPackage ./pkgs/sticker2 {
+      inherit stdenv;
+
+      libtorch = danieldk.libtorch.v1_4_0.override { inherit stdenv; };
+    };
+}
