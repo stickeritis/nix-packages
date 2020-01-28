@@ -40,16 +40,22 @@ in rec {
     libtensorflow = libtensorflow_1_14_0;
   };
 
-  sticker2 =
-    let
-      # PyTorch 1.4.0 does not work with gcc 9.x. The stdenv ovveride
-      # should be removed after the next PyTorch dot release.
-      #
-      # https://github.com/pytorch/pytorch/issues/32277
-      stdenv = if pkgs.stdenv.cc.isGNU then pkgs.gcc8Stdenv else pkgs.stdenv;
-    in pkgs.callPackage ./pkgs/sticker2 {
-      inherit stdenv;
+  sticker2 = let
+    # PyTorch 1.4.0 does not work with gcc 9.x. The stdenv ovveride
+    # should be removed after the next PyTorch dot release.
+    #
+    # https://github.com/pytorch/pytorch/issues/32277
+    stdenv = if pkgs.stdenv.cc.isGNU then pkgs.gcc8Stdenv else pkgs.stdenv;
+  in pkgs.callPackage ./pkgs/sticker2 {
+    inherit stdenv;
 
-      libtorch = danieldk.libtorch.v1_4_0.override { inherit stdenv; };
-    };
+    libtorch = danieldk.libtorch.v1_4_0.override { inherit stdenv; };
+  };
+
+
+  sticker2_models = pkgs.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/sticker2_models {
+      inherit sticker2;
+    }
+  );
 }
