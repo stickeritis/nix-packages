@@ -10,5 +10,17 @@
         "type": "tarball",
         "url": "https://github.com/danieldk/nix-packages/archive/55e62acf6a810709b6e456668aa03cfe2a042394.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "release-19.09",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6d9a4a615ee2706047c2cec3acc61d2cfbffdb0b",
+        "sha256": "1zgwp31nqh7glh7l2i0n5vic5jv1683l6lvc7r7wdmkbsbkmig1p",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/6d9a4a615ee2706047c2cec3acc61d2cfbffdb0b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
