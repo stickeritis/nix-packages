@@ -10,7 +10,7 @@ in rec {
   overlays = import ./overlays;
 
   dockerImages = pkgs.callPackage ./docker-images {
-    inherit models pipelines;
+    inherit sticker_models sticker_pipelines;
   };
 
   # Pin Tensorflow to our preferred version.
@@ -20,18 +20,6 @@ in rec {
     cudnn = cudnn_cudatoolkit_10_0;
   };
 
-  models = pkgs.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/models {
-      inherit sticker;
-    }
-  );
-
-  pipelines = pkgs.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/pipelines {
-      inherit models sticker;
-    }
-  );
-
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-modules {}
   );
@@ -39,6 +27,18 @@ in rec {
   sticker = pkgs.callPackage ./pkgs/sticker {
     libtensorflow = libtensorflow_1_14_0;
   };
+
+  sticker_models = pkgs.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/models {
+      inherit sticker;
+    }
+  );
+
+  sticker_pipelines = pkgs.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/pipelines {
+      inherit sticker_models sticker;
+    }
+  );
 
   sticker2 = let
     # PyTorch 1.4.0 does not work with gcc 9.x. The stdenv ovveride
