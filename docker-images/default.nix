@@ -2,10 +2,10 @@
 , dockerTools
 
   # Sticker model set.
-, models
+, sticker_models
 
   # Sticker pipeline set.
-, pipelines
+, sticker_pipelines
 
   # Docker image name.
 , imageName ? "danieldk/sticker"
@@ -29,9 +29,9 @@ in
 {
   # Model Docker images
   models = builtins.mapAttrs (n: v: stickerImage n v.wrapper.version v.wrapper)
-    (lib.filterAttrs isModel models);
+    (lib.filterAttrs isModel sticker_models);
 
   # Pipeline Docker images
   pipelines = builtins.mapAttrs (n: v: stickerImage "pipeline-${n}" v.version v)
-    (lib.filterAttrs isPipeline pipelines);
+    (lib.filterAttrs isPipeline sticker_pipelines);
 }
