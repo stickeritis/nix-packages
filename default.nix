@@ -29,13 +29,13 @@ in rec {
   };
 
   sticker_models = pkgs.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/models {
+    pkgs.callPackage ./pkgs/sticker_models {
       inherit sticker;
     }
   );
 
   sticker_pipelines = pkgs.recurseIntoAttrs (
-    pkgs.callPackage ./pkgs/pipelines {
+    pkgs.callPackage ./pkgs/sticker_pipelines {
       inherit sticker_models sticker;
     }
   );
