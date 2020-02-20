@@ -1,4 +1,4 @@
-{ lib, recurseIntoAttrs, stdenvNoCC, fetchurl, makeWrapper, sticker }:
+{ lib, recurseIntoAttrs, stdenvNoCC, fetchurl, dockerTools, makeWrapper, sticker }:
 
 let
   stickerModel = import ./model.nix;
@@ -31,7 +31,7 @@ let
   };
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   de-deps-ud-large = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "de-deps-ud-large";
     version = "20190926";
@@ -42,7 +42,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   };
 
   de-deps-ud-small = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "de-deps-ud-small";
     version = "20190923";
@@ -53,7 +53,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   };
 
   de-ner-ud-small = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "de-ner-ud-small";
     version = "20190928";
@@ -64,7 +64,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   };
 
   de-pos-ud = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "de-pos-ud";
     version = "20190821";
@@ -74,7 +74,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   };
 
   de-topo-ud-small = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "de-topo-ud-small";
     version = "20191002";
@@ -86,7 +86,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
 
 
   nl-deps-ud-large = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "nl-deps-ud-large";
     version = "20190929";
@@ -97,7 +97,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   };
 
   nl-deps-ud-small = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "nl-deps-ud-small";
     version = "20191025";
@@ -108,7 +108,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   };
 
   nl-ner-ud-small = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "nl-ner-ud-small";
     version = "20191003";
@@ -120,7 +120,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
 
 
   nl-pos-ud = stickerModel {
-    inherit stdenvNoCC fetchurl makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
 
     modelName = "nl-pos-ud";
     version = "20190822";

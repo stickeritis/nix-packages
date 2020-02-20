@@ -1,5 +1,8 @@
-{ stdenvNoCC
+{ lib
+, stdenvNoCC
 , fetchurl
+
+, dockerTools
 , makeWrapper
 
 , sticker
@@ -22,6 +25,13 @@
 
 rec {
   inherit modelName;
+
+  dockerImage = lib.makeOverridable dockerTools.buildLayeredImage {
+    name = "danieldk/sticker";
+    tag = "${modelName}-${version}";
+    contents = wrapper;
+    maxLayers = 100;
+  };
 
   model = stdenvNoCC.mkDerivation rec {
     inherit version;
