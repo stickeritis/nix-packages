@@ -7,8 +7,8 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
     inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker2;
 
     modelName = "nl-ud-large";
-    version = "20200128";
-    sha256 = "0l8s2xy397ps1g4kqppcq57ahqnkc9bszm9wn8y3gisrblzl6fap";
+    version = "20200220";
+    sha256 = "0ahqwkhc161i8vzbfxq2lvrdzv2rmp44gjyfg5vnpwjw00i0xk8q";
   };
 
   nl-ud-medium = stickerModel {
