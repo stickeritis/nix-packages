@@ -1,5 +1,6 @@
 { callPackage
 , lib
+, gcc8Stdenv
 , stdenv
 
 , buildRustCrate
@@ -8,6 +9,7 @@
 
 # Native build inputs
 , installShellFiles ? null # Available in 19.09 and later.
+, pkgconfig
 , symlinkJoin
 
 # Build inputs
@@ -15,14 +17,15 @@
 , darwin
 , hdf5
 , libtorch
+, sentencepiece
 }:
 
 let
   sticker_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
-    rev = "0.1.1";
-    sha256 = "1xwccs50glzgj1zbl0icajq7p06gyr04zcxabsqnjxas6bi0xncp";
+    rev = "0.2.0";
+    sha256 = "18vjsva4wnbfaxy659pmn216pb1nl7rqlfb6y6xswr39c513xi6k";
   };
   cargo_nix = callPackage ./Cargo.nix {
     buildRustCrate = buildRustCrate.override {
@@ -32,11 +35,20 @@ let
       defaultCrateOverrides = crateOverrides;
     };
   };
+  # PyTorch 1.4.0 headers are not compatible with gcc 9. Remove with
+  # the next PyTorch release.
+  compatStdenv = if stdenv.cc.isGNU then gcc8Stdenv else stdenv;
   crateOverrides = defaultCrateOverrides // {
     hdf5-sys = attr: {
       # Unless we use pkg-config, the hdf5-sys build script does not like
       # it if libraries and includes are in different directories.
       HDF5_DIR = symlinkJoin { name = "hdf5-join"; paths = [ hdf5.dev hdf5.out ]; };
+    };
+
+    sentencepiece-sys = attr: {
+      nativeBuildInputs = [ pkgconfig ];
+
+      buildInputs = [ (sentencepiece.override (attrs: { stdenv = compatStdenv; })) ];
     };
 
     sticker2 = attr: { src = "${sticker_src}/sticker2"; };
@@ -77,6 +89,10 @@ let
     };
 
     torch-sys = attr: {
+      # Only necessary as long as sticker2 uses a git version of tch.
+      src = "${attr.src}/torch-sys";
+
+
       buildInputs = stdenv.lib.optional stdenv.isDarwin curl;
 
       LIBTORCH = libtorch;
