@@ -3,6 +3,14 @@
 let
   stickerModel = import ./model.nix;
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
+  de-ud-large = stickerModel {
+    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker2;
+
+    modelName = "de-ud-large";
+    version = "20200222";
+    sha256 = "1czlnsxvanf69y6sxawi46q1fxs3xjf6ggvnkfr7zlgfs1i38hid";
+  };
+
   nl-ud-large = stickerModel {
     inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker2;
 
