@@ -1,3 +1,8 @@
+# We take attribute sets of arguments. The first set are arguments
+# that are constant between the models (such as the sticker2
+# derivation to use). The second set of arguments defines specific
+# models.
+
 { lib
 , stdenvNoCC
 , fetchurl
@@ -6,13 +11,16 @@
 , makeWrapper
 
 , sticker2
+}:
 
-# Short name of the model. E.g.: nl-ud.
-, modelName
+{
+  # Short name of the model. E.g.: nl-ud.
+  modelName
 
-# Version of the model, typically a date. E.g.: 20200128
+  # Version of the model, typically a date. E.g.: 20200128
 , version
 
+  # The SHA-256 hash of the model.
 , sha256
 }:
 

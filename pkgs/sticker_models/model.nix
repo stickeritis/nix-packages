@@ -1,3 +1,8 @@
+# We take attribute sets of arguments. The first set are arguments
+# that are constant between the models (such as the sticker2
+# derivation to use). The second set of arguments defines specific
+# models.
+
 { lib
 , stdenvNoCC
 , fetchurl
@@ -6,12 +11,14 @@
 , makeWrapper
 
 , sticker
+}:
 
+{
 # Word and tag embeddings as an attrset, containing the attributes:
 #
 # - embeds: Embedding file fixed-output derivation.
 # - filename: Embedding file name in the model's sticker.conf
-, wordEmbeds
+  wordEmbeds
 , tagEmbeds ? null
 
 # Short name of the model. E.g.: de-pos-ud.
