@@ -18,14 +18,16 @@
 , hdf5
 , libtorch
 , sentencepiece
+
+, withHdf5 ? true
 }:
 
 let
   sticker_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
-    rev = "0.2.0";
-    sha256 = "18vjsva4wnbfaxy659pmn216pb1nl7rqlfb6y6xswr39c513xi6k";
+    rev = "0.2.1";
+    sha256 = "18kraav933nbr70jzcr34g4arkh7qxsb4zfxjpaqy02xwaqnxykl";
   };
   cargo_nix = callPackage ./Cargo.nix {
     buildRustCrate = buildRustCrate.override {
@@ -98,4 +100,6 @@ let
       LIBTORCH = libtorch;
     };
   };
-in cargo_nix.workspaceMembers.sticker2-utils.build
+in cargo_nix.workspaceMembers.sticker2-utils.build.override {
+  features = lib.optional withHdf5 "load-hdf5";
+}
