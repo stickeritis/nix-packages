@@ -5,6 +5,12 @@ let
     inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker2;
   };
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
+  de-ud-huge = stickerModel {
+    modelName = "de-ud-huge";
+    version = "20200225";
+    sha256 = "0lvbkzgny2dq6jngxg35bq4rsr7jvaqpgi7ll9ddxyl06asibncd";
+  };
+
   de-ud-large = stickerModel {
     modelName = "de-ud-large";
     version = "20200222";
