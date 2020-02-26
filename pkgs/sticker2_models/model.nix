@@ -64,7 +64,7 @@ rec {
   wrapper = stdenvNoCC.mkDerivation rec {
     inherit version;
 
-    pname = "sticker-${modelName}";
+    pname = "sticker2-${modelName}-wrapper";
 
     nativeBuildInputs = [ makeWrapper ];
 
