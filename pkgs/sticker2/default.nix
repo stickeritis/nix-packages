@@ -1,6 +1,5 @@
 { callPackage
 , lib
-, gcc8Stdenv
 , stdenv
 
 , buildRustCrate
@@ -37,9 +36,6 @@ let
       defaultCrateOverrides = crateOverrides;
     };
   };
-  # PyTorch 1.4.0 headers are not compatible with gcc 9. Remove with
-  # the next PyTorch release.
-  compatStdenv = if stdenv.cc.isGNU then gcc8Stdenv else stdenv;
   crateOverrides = defaultCrateOverrides // {
     hdf5-sys = attr: {
       # Unless we use pkg-config, the hdf5-sys build script does not like
@@ -50,7 +46,7 @@ let
     sentencepiece-sys = attr: {
       nativeBuildInputs = [ pkgconfig ];
 
-      buildInputs = [ (sentencepiece.override (attrs: { stdenv = compatStdenv; })) ];
+      buildInputs = [ sentencepiece ];
     };
 
     sticker2 = attr: { src = "${sticker_src}/sticker2"; };
