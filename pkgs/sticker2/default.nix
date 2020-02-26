@@ -9,6 +9,7 @@
 # Native build inputs
 , installShellFiles ? null # Available in 19.09 and later.
 , pkgconfig
+, removeReferencesTo
 , symlinkJoin
 
 # Build inputs
@@ -57,9 +58,10 @@ let
 
       src = "${sticker_src}/sticker2-utils";
 
-      nativeBuildInputs = lib.optional (!isNull installShellFiles) installShellFiles;
+      nativeBuildInputs = [ removeReferencesTo ] ++
+        lib.optional (!isNull installShellFiles) installShellFiles;
 
-      buildInputs = stdenv.lib.optional stdenv.isDarwin darwin.Security;
+      buildInputs = [ libtorch ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
       postBuild = ''
         for shell in bash fish zsh; do
@@ -69,14 +71,20 @@ let
 
       postInstall = ''
         # We do not care for sticker2-utils as a library crate. Removing
-        # the library reduces the number of dependencies.
-        rm -rf $out/lib
+        # the library ensures that we don't get any stray references.
+        rm -rf $lib/lib
 
         rm $out/bin/*.d
+
+        # libtorch' headers use the __FILE__ macro in exceptions, this
+        # creates a false dependency on the libtorch dev output.
+        remove-references-to -t ${libtorch.dev} $out/bin/sticker2
       '' + lib.optionalString (!isNull installShellFiles) ''
         # Install shell completions
         installShellCompletion completions.{bash,fish,zsh}
       '';
+
+      disallowedReferences = [ libtorch.dev ];
 
       meta = with stdenv.lib; {
         description = "Neural sequence labeler";
@@ -90,10 +98,9 @@ let
       # Only necessary as long as sticker2 uses a git version of tch.
       src = "${attr.src}/torch-sys";
 
-
       buildInputs = stdenv.lib.optional stdenv.isDarwin curl;
 
-      LIBTORCH = libtorch;
+      LIBTORCH = libtorch.dev;
     };
   };
 in cargo_nix.workspaceMembers.sticker2-utils.build.override {
