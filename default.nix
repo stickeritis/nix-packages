@@ -46,7 +46,11 @@ in rec {
     inherit stdenv;
 
     libtorch = danieldk.libtorch.v1_4_0.override { inherit stdenv; };
-    sentencepiece = pkgs.sentencepiece.override { inherit stdenv; };
+
+    sentencepiece = pkgs.callPackage ./pkgs/sentencepiece {
+      inherit stdenv;
+      withGPerfTools = false;
+    };
   };
 
   sticker2_models = pkgs.recurseIntoAttrs (
