@@ -4,19 +4,21 @@ on:
   push:
 jobs:
   tests:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        platform:
+          - ubuntu-latest
+          - macos-latest
         channel:
           - "https://nixos.org/channels/nixos-19.09"
+    runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v1
-    - uses: cachix/install-nix-action@v3
+    - uses: cachix/install-nix-action@v7
     - run: nix-channel --add ${{ matrix.channel }} nixpkgs
     - run: nix-channel --update
-    - run: sudo sh -c 'echo "sandbox = true" | sudo tee -a /etc/nix/nix.conf'
     - run: cat /etc/nix/nix.conf
-    - uses: cachix/cachix-action@v2
+    - uses: cachix/cachix-action@v4
       with:
         name: sticker
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
