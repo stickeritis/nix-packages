@@ -26,9 +26,9 @@ rec {
   # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
   workspaceMembers = {
     "sticker2" = rec {
-      packageId = "sticker2 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2)";
+      packageId = "sticker2 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2)";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "sticker2 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2)";
+        packageId = "sticker2 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2)";
       };
 
       # Debug support which might change between releases.
@@ -36,9 +36,9 @@ rec {
       debug = internal.debugCrate { inherit packageId; };
     };
     "sticker2-utils" = rec {
-      packageId = "sticker2-utils 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2-utils)";
+      packageId = "sticker2-utils 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2-utils)";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "sticker2-utils 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2-utils)";
+        packageId = "sticker2-utils 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2-utils)";
       };
 
       # Debug support which might change between releases.
@@ -3030,9 +3030,9 @@ rec {
         };
         resolvedDefaultFeatures = [ "hdf5" "load-hdf5" ];
       };
-      "sticker2 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2)" = rec {
+      "sticker2 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2)" = rec {
         crateName = "sticker2";
-        version = "0.2.1";
+        version = "0.2.2";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker2);
         authors = [
@@ -3103,7 +3103,7 @@ rec {
           }
           {
             name = "wordpieces";
-            packageId = "wordpieces 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)";
+            packageId = "wordpieces 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)";
           }
         ];
         devDependencies = [
@@ -3122,9 +3122,9 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "load-hdf5" "model-tests" ];
       };
-      "sticker2-utils 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2-utils)" = rec {
+      "sticker2-utils 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2-utils)" = rec {
         crateName = "sticker2-utils";
-        version = "0.2.1";
+        version = "0.2.2";
         edition = "2018";
         crateBin = [
           { name = "sticker2"; path = "src/main.rs"; }
@@ -3178,7 +3178,7 @@ rec {
           }
           {
             name = "sticker2";
-            packageId = "sticker2 0.2.1 (path+file:///home/daniel/git/sticker2/sticker2)";
+            packageId = "sticker2 0.2.2 (path+file:///home/daniel/git/sticker2/sticker2)";
             usesDefaultFeatures = false;
           }
           {
@@ -3697,11 +3697,11 @@ rec {
         };
         resolvedDefaultFeatures = [ "serde" "serialization-serde" "transactions" ];
       };
-      "wordpieces 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = rec {
+      "wordpieces 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = rec {
         crateName = "wordpieces";
-        version = "0.2.0";
+        version = "0.2.1";
         edition = "2018";
-        sha256 = "07jf70sawf3baxk5n9ka4ddnzg1k0rfrdk3cayk0588bl18x92km";
+        sha256 = "0hglvqhb8kw8198wf4jzcnbhi2mc6ppwyr6b5y6gy0vgkyk8r6c1";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
           "Tobias Pütz <tobias.puetz@uni-tuebingen.de"
