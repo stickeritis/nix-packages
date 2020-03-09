@@ -36,7 +36,8 @@ in (rustPlatform "2019-07-30").buildRustPackage rec {
 
   nativeBuildInputs = [ maturin pkgs.pkgconfig pip ];
 
-  buildInputs = [ pkgs.openssl python libtensorflow-bin ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
+  buildInputs = [ pkgs.openssl python libtensorflow-bin ] ++
+    stdenv.lib.optionals stdenv.isDarwin [ pkgs.curl darwin.Security ];
 
   installCheckInputs = [ pytest ];
 
