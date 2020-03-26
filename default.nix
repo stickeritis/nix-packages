@@ -47,7 +47,7 @@ in rec {
 
     libtorch = danieldk.libtorch.v1_4_0.override { inherit stdenv; };
 
-    sentencepiece = pkgs.callPackage ./pkgs/sentencepiece {
+    sentencepiece = pkgs.sentencepiece.override {
       inherit stdenv;
       withGPerfTools = false;
     };
