@@ -21,8 +21,9 @@ let
     rev = "0.10.0";
     sha256 = "1bxhinx2jcjgcmgaw9h587ma6mmy9aizh3b8y5lwlhwgz6m0xppd";
   };
-  cargo_nix = callPackage ./Cargo.nix {};
-in cargo_nix.workspaceMembers.sticker-utils.build.override {
+  cargo_nix = callPackage ./Cargo.nix {
+    defaultCrateOverrides = crateOverrides;
+  };
   crateOverrides = defaultCrateOverrides // {
     sticker = attr: { src = "${sticker_src}/sticker"; };
 
@@ -40,13 +41,11 @@ in cargo_nix.workspaceMembers.sticker-utils.build.override {
 
       postBuild = ''
         for shell in bash fish zsh; do
-          target/bin/sticker-utils completions $shell > completions.$shell
+          target/bin/sticker completions $shell > completions.$shell
         done
       '';
 
       postInstall = ''
-        mv $out/bin/sticker-utils $out/bin/sticker
-
         # We do not care for sticker-utils as a library crate. Removing
         # the library reduces the number of dependencies.
         rm -rf $out/lib
@@ -72,4 +71,4 @@ in cargo_nix.workspaceMembers.sticker-utils.build.override {
         stdenv.lib.optional stdenv.isDarwin curl;
     };
   };
-}
+in cargo_nix.workspaceMembers.sticker-utils.build
