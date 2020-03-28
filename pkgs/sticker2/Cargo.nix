@@ -26,9 +26,9 @@ rec {
   # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
   workspaceMembers = {
     "sticker2" = rec {
-      packageId = "sticker2 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2)";
+      packageId = "sticker2 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2)";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "sticker2 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2)";
+        packageId = "sticker2 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2)";
       };
 
       # Debug support which might change between releases.
@@ -36,9 +36,9 @@ rec {
       debug = internal.debugCrate { inherit packageId; };
     };
     "sticker2-utils" = rec {
-      packageId = "sticker2-utils 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2-utils)";
+      packageId = "sticker2-utils 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2-utils)";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "sticker2-utils 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2-utils)";
+        packageId = "sticker2-utils 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2-utils)";
       };
 
       # Debug support which might change between releases.
@@ -2952,11 +2952,11 @@ rec {
         ];
         
       };
-      "sticker-encoders 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = rec {
+      "sticker-encoders 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = rec {
         crateName = "sticker-encoders";
-        version = "0.2.0";
+        version = "0.2.1";
         edition = "2018";
-        sha256 = "19v1lp9ah7vhxd87bh0ld7iqx1jda1bdjg2cvyvg6ckj64b7ippp";
+        sha256 = "0mxyb2sdy0agrksrh0avdrhscpzkw9cdkb2hlxn184v83a36lf1y";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
         ];
@@ -3030,9 +3030,9 @@ rec {
         };
         resolvedDefaultFeatures = [ "hdf5" "load-hdf5" ];
       };
-      "sticker2 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2)" = rec {
+      "sticker2 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2)" = rec {
         crateName = "sticker2";
-        version = "0.2.3";
+        version = "0.2.4";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker2);
         authors = [
@@ -3086,7 +3086,7 @@ rec {
           }
           {
             name = "sticker-encoders";
-            packageId = "sticker-encoders 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)";
+            packageId = "sticker-encoders 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)";
           }
           {
             name = "sticker-transformers";
@@ -3122,9 +3122,9 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "load-hdf5" "model-tests" ];
       };
-      "sticker2-utils 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2-utils)" = rec {
+      "sticker2-utils 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2-utils)" = rec {
         crateName = "sticker2-utils";
-        version = "0.2.3";
+        version = "0.2.4";
         edition = "2018";
         crateBin = [
           { name = "sticker2"; path = "src/main.rs"; }
@@ -3169,7 +3169,7 @@ rec {
           }
           {
             name = "sticker-encoders";
-            packageId = "sticker-encoders 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)";
+            packageId = "sticker-encoders 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)";
           }
           {
             name = "sticker-transformers";
@@ -3178,7 +3178,7 @@ rec {
           }
           {
             name = "sticker2";
-            packageId = "sticker2 0.2.3 (path+file:///Users/daniel/git/sticker2/sticker2)";
+            packageId = "sticker2 0.2.4 (path+file:///Users/daniel/git/sticker2/sticker2)";
             usesDefaultFeatures = false;
           }
           {
