@@ -18,8 +18,8 @@ let
   sticker_src = fetchFromGitHub {
     owner = "danieldk";
     repo = "sticker";
-    rev = "0.10.0";
-    sha256 = "1bxhinx2jcjgcmgaw9h587ma6mmy9aizh3b8y5lwlhwgz6m0xppd";
+    rev = "0.11.0";
+    sha256 = "09dk55x38bf2j3lvsz90gpqq9f335sr6ylpk75k8m8v6lprriq5v";
   };
   cargo_nix = callPackage ./Cargo.nix {
     defaultCrateOverrides = crateOverrides;
