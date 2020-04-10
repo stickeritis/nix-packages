@@ -10,7 +10,7 @@ in rec {
   overlays = import ./overlays;
 
   # Pin Tensorflow to our preferred version.
-  libtensorflow_1_14_0 = with pkgs; callPackage ./pkgs/libtensorflow {
+  libtensorflow = with pkgs; callPackage ./pkgs/libtensorflow {
     inherit (linuxPackages) nvidia_x11;
     cudatoolkit = cudatoolkit_10_0;
     cudnn = cudnn_cudatoolkit_10_0;
@@ -21,7 +21,7 @@ in rec {
   );
 
   sticker = pkgs.callPackage ./pkgs/sticker {
-    libtensorflow = libtensorflow_1_14_0;
+    inherit libtensorflow;
   };
 
   sticker_models = pkgs.recurseIntoAttrs (

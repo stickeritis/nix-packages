@@ -31,19 +31,15 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "libtensorflow";
-  version = "1.14.0";
+  version = "1.15.0";
 
   src = fetchurl {
     url = "https://blob.danieldk.eu/${pname}/${pname}-${tfType}-${system}-avx-fma-${version}.tar.gz";
     sha256 =
       if system == "linux-x86_64" then
         if cudaSupport
-        then "0ygq7ddjd4ahzkjgfjy01zxkczkxy6n5jp3bb75z02nlx87pw3d0"
-        else "1xcgkls4hrxgdhnap4ngnda3l8a0b6fp41xp2xpmmm51rbgfzs90"
-      else if system == "darwin-x86_64" then
-        if cudaSupport
-        then unavailable
-        else "120lr69f684lfcv5chivkq0xxaf0jjp0i7ms542mb971iji95cmv"
+        then "1gkx76lc9zi8xcqxm1n2mmf44bb7nc59h9k6szlyas735d500q7f"
+        else "0yrm9jkb31a8y5brlmh0z2bwkh0z62x2yr4b8vwzlh4xicq3cll2"
       else unavailable;
   };
 
