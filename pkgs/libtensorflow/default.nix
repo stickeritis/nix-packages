@@ -13,9 +13,13 @@ let
     else unavailable;
   unavailable = throw "libtensorflow is not available for this platform!";
   cudatoolkit_joined = symlinkJoin {
-    name = "unsplit_cudatoolkit";
-    paths = [ cudatoolkit.out
-              cudatoolkit.lib ];};
+    name = "${cudatoolkit.name}-merged";
+    paths = [
+      cudatoolkit.lib
+      cudatoolkit.out
+      "${cudatoolkit}/targets/${stdenv.system}"
+    ];
+  };
   rpath = makeLibraryPath ([stdenv.cc.libc stdenv.cc.cc.lib] ++
             optionals cudaSupport [ cudatoolkit_joined cudnn nvidia_x11 ]);
   patchLibs =
@@ -31,15 +35,17 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "libtensorflow";
-  version = "1.15.0";
+  version = "1.15.2";
 
   src = fetchurl {
     url = "https://blob.danieldk.eu/${pname}/${pname}-${tfType}-${system}-avx-fma-${version}.tar.gz";
     sha256 =
       if system == "linux-x86_64" then
         if cudaSupport
-        then "1gkx76lc9zi8xcqxm1n2mmf44bb7nc59h9k6szlyas735d500q7f"
-        else "0yrm9jkb31a8y5brlmh0z2bwkh0z62x2yr4b8vwzlh4xicq3cll2"
+        then "0lvx0yj33q1dyiv2gnndf9vy0snza6h9gx16igm0jpr6rb6qkdcl"
+        else "1c2418wqnlmqky7xjfw36d8mgs3gqiyqagw3ifxr3hkjbpffcgwg"
+      else if system == "darwin-x86_64" then
+        "1yky6b5kki7qc7vyg9bnck7m0xgii5b1hjm707gl8ixf54880isa"
       else unavailable;
   };
 

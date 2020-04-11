@@ -12,8 +12,8 @@ in rec {
   # Pin Tensorflow to our preferred version.
   libtensorflow = with pkgs; callPackage ./pkgs/libtensorflow {
     inherit (linuxPackages) nvidia_x11;
-    cudatoolkit = cudatoolkit_10_0;
-    cudnn = cudnn_cudatoolkit_10_0;
+    cudatoolkit = cudatoolkit_10_1;
+    cudnn = cudnn_cudatoolkit_10_1;
   };
 
   python3Packages = pkgs.recurseIntoAttrs (
