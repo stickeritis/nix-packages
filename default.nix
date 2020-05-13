@@ -20,6 +20,8 @@ in rec {
     pkgs.python3Packages.callPackage ./pkgs/python-modules {}
   );
 
+  sentencepiece = pkgs.callPackage ./pkgs/sentencepiece {};
+
   sticker = pkgs.callPackage ./pkgs/sticker {
     inherit libtensorflow;
   };
@@ -47,7 +49,7 @@ in rec {
 
     libtorch = danieldk.libtorch.v1_4_0.override { inherit stdenv; };
 
-    sentencepiece = pkgs.sentencepiece.override {
+    sentencepiece = sentencepiece.override {
       inherit stdenv;
       withGPerfTools = false;
     };
