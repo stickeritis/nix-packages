@@ -74,8 +74,6 @@ let
         # the library ensures that we don't get any stray references.
         rm -rf $lib/lib
 
-        rm $out/bin/*.d
-
         # libtorch' headers use the __FILE__ macro in exceptions, this
         # creates a false dependency on the libtorch dev output.
         remove-references-to -t ${libtorch.dev} $out/bin/sticker2
