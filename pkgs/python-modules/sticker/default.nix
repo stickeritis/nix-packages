@@ -32,7 +32,7 @@ in (rustPlatform "2019-07-30").buildRustPackage rec {
     sha256 = "14jmy7fjnr6456wpbipckgvi8c256njnm2bmqz3dzg22ly3d9nd1";
   };
 
-  cargoSha256 = "1sh6fqbbmzjavmxm4pj7d8znxqxgjsj0iggjh3cqgx1qfby6y12f";
+  cargoSha256 = "1fhjnahqaf6a8b3dim1nkzfnfc18yhh2i1jah0k0xw365nqiag4h";
 
   nativeBuildInputs = [ maturin pkgs.pkgconfig pip ];
 

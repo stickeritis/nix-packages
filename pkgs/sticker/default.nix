@@ -49,8 +49,6 @@ let
         # We do not care for sticker-utils as a library crate. Removing
         # the library reduces the number of dependencies.
         rm -rf $out/lib
-
-        rm $out/bin/*.d
       '' + lib.optionalString (!isNull installShellFiles) ''
         # Install shell completions
         installShellCompletion completions.{bash,fish,zsh}
