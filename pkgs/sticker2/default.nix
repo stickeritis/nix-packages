@@ -26,14 +26,11 @@ let
   sticker_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
-    rev = "0.2.4";
-    sha256 = "1j0pp0qmh7nl401dhhxw5h34kankzp5kjszp5aycmipj43isimkk";
+    rev = "0.3.0";
+    sha256 = "0wykq9d195hhyaz8qylji34ljzphz2rwpawywhh6xz9jply3k22s";
   };
   cargo_nix = callPackage ./Cargo.nix {
     buildRustCrate = buildRustCrate.override {
-      # Ensure that we use stdenv provided as an argument.
-      inherit stdenv;
-
       defaultCrateOverrides = crateOverrides;
     };
   };
@@ -93,9 +90,6 @@ let
     };
 
     torch-sys = attr: {
-      # Only necessary as long as sticker2 uses a git version of tch.
-      src = "${attr.src}/torch-sys";
-
       buildInputs = stdenv.lib.optional stdenv.isDarwin curl;
 
       LIBTORCH = libtorch.dev;
