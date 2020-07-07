@@ -2,7 +2,6 @@
 
 let
   sources = import ./nix/sources.nix;
-  danieldk = pkgs.callPackage sources.danieldk {};
 in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; };
@@ -14,6 +13,10 @@ in rec {
     inherit (linuxPackages) nvidia_x11;
     cudatoolkit = cudatoolkit_10_1;
     cudnn = cudnn_cudatoolkit_10_1;
+  };
+
+  libtorch = pkgs.callPackage ./pkgs/libtorch {
+    inherit (pkgs.linuxPackages) nvidia_x11;
   };
 
   python3Packages = pkgs.recurseIntoAttrs (
@@ -39,7 +42,7 @@ in rec {
   );
 
   sticker2 = pkgs.callPackage ./pkgs/sticker2 {
-    libtorch = danieldk.libtorch.v1_5_0;
+    inherit libtorch;
 
     sentencepiece = sentencepiece.override {
       withGPerfTools = false;

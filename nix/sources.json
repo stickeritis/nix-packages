@@ -1,16 +1,4 @@
 {
-    "danieldk": {
-        "branch": "master",
-        "description": "My Nix package set",
-        "homepage": "",
-        "owner": "danieldk",
-        "repo": "nix-packages",
-        "rev": "015e06a9f1518f81ddc740b557ce657cc0c0fb2c",
-        "sha256": "1zgafv4hsvzpjc2r601dzdbzmz9q8xcivzg2wgr6vi02bf375zqi",
-        "type": "tarball",
-        "url": "https://github.com/danieldk/nix-packages/archive/015e06a9f1518f81ddc740b557ce657cc0c0fb2c.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "nixpkgs": {
         "branch": "nixos-20.03",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
