@@ -26,8 +26,8 @@ let
   sticker_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
-    rev = "0.3.0";
-    sha256 = "0wykq9d195hhyaz8qylji34ljzphz2rwpawywhh6xz9jply3k22s";
+    rev = "0.3.1";
+    sha256 = "1iq4ksv1yhbgbyzb9zhq0q2zdlnxpa28ip0b1j3mn4i878arf1ra";
   };
   cargo_nix = callPackage ./Cargo.nix {
     buildRustCrate = buildRustCrate.override {

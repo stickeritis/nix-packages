@@ -3215,9 +3215,9 @@ rec {
       };
       "sentencepiece" = rec {
         crateName = "sentencepiece";
-        version = "0.2.1";
+        version = "0.3.1";
         edition = "2018";
-        sha256 = "0bq54hav5c6g7kkvmr0pc102dgwvb8khbjkbzxsdb58qxnylb35s";
+        sha256 = "1rp97ayil8phmb6r5dnm5jyyhzj4aad7rj4885nlwjklshgcz8za";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
         ];
@@ -3253,9 +3253,9 @@ rec {
       };
       "sentencepiece-sys" = rec {
         crateName = "sentencepiece-sys";
-        version = "0.2.1";
+        version = "0.3.0";
         edition = "2018";
-        sha256 = "06hh77isqiam4jyd4ifj1k3a1w6m34wlb3ynm0z51vq5a2sw8373";
+        sha256 = "0c0jr1r6abi3bgic69d0bvr1x98prb796mlbji9h2pyr2d6xaipr";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
         ];
@@ -3543,7 +3543,7 @@ rec {
       };
       "sticker2" = rec {
         crateName = "sticker2";
-        version = "0.3.0";
+        version = "0.3.1";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker2);
         authors = [
@@ -3652,7 +3652,7 @@ rec {
       };
       "sticker2-utils" = rec {
         crateName = "sticker2-utils";
-        version = "0.3.0";
+        version = "0.3.1";
         edition = "2018";
         crateBin = [
           { name = "sticker2"; path = "src/main.rs"; }
