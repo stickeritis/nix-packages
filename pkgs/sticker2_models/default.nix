@@ -13,8 +13,8 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
 
   de-ud-large = stickerModel {
     modelName = "de-ud-large";
-    version = "20200523";
-    sha256 = "1q36yc67sqm7wg7ld0nhnxgk5gzv1b5mbbpxwy2df2xm0cybm89l";
+    version = "20200710";
+    sha256 = "16qf4qc3qwkyn2lhl4jazjk73bd2jhpr2c8dm69gnd5fzbii3r6d";
   };
 
   nl-ud-large = stickerModel {
