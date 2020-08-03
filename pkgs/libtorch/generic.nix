@@ -58,6 +58,7 @@ in stdenv.mkDerivation {
 
     install_name_tool -change @rpath/libc10.dylib $out/lib/libc10.dylib $out/lib/libtorch_cpu.dylib
     install_name_tool -change @rpath/libiomp5.dylib $out/lib/libiomp5.dylib $out/lib/libtorch_cpu.dylib
+    install_name_tool -change @rpath/libtensorpipe.dylib $out/lib/libtensorpipe.dylib $out/lib/libtorch_cpu.dylib
 
     install_name_tool -change @rpath/libc10.dylib $out/lib/libc10.dylib $out/lib/libcaffe2_observers.dylib
     install_name_tool -change @rpath/libiomp5.dylib $out/lib/libiomp5.dylib $out/lib/libcaffe2_observers.dylib
