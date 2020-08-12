@@ -7,8 +7,8 @@ let
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   de-ud-huge = stickerModel {
     modelName = "de-ud-huge";
-    version = "20200709";
-    sha256 = "19iq9fzjq0xs1k7i4xhsjgx79dmjpicx36yvr35pljb236d7d77x";
+    version = "20200812";
+    sha256 = "1gzpgzq1dxcs5vcxhx72v0dc22wxk9ja2sqgjv15yag42lprj9rn";
   };
 
   de-ud-large = stickerModel {
