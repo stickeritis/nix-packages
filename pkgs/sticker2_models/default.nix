@@ -25,7 +25,7 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
 
   nl-ud-medium = stickerModel {
     modelName = "nl-ud-medium";
-    version = "20200430";
-    sha256 = "0z62smmkc43yiw8fbnfqvlmk7f70qgyjrh41mj6q9y4p4bpa2igz";
+    version = "20200812";
+    sha256 = "0vrm2zh53vzbvbb1jb2zrxhfv277q76zi4yv2ps34wvklxh63jpz";
   };
 }
