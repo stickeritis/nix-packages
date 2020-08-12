@@ -17,6 +17,12 @@ in lib.mapAttrs (_: value: recurseIntoAttrs value) {
     sha256 = "16qf4qc3qwkyn2lhl4jazjk73bd2jhpr2c8dm69gnd5fzbii3r6d";
   };
 
+  nl-ud-huge = stickerModel {
+    modelName = "nl-ud-huge";
+    version = "20200812";
+    sha256 = "04vlkwmlx2x377r8rsy9fbyslw17z0z8h6k1ic3n7f271r66cidf";
+  };
+
   nl-ud-large = stickerModel {
     modelName = "nl-ud-large";
     version = "20200812";
