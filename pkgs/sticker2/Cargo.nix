@@ -224,17 +224,7 @@ rec {
         ];
         
       };
-      "autocfg 0.1.7" = rec {
-        crateName = "autocfg";
-        version = "0.1.7";
-        edition = "2015";
-        sha256 = "1chwgimpx5z7xbag7krr9d8asxfqbh683qhgl9kn3hxk2l0djj8x";
-        authors = [
-          "Josh Stone <cuviper@gmail.com>"
-        ];
-        
-      };
-      "autocfg 1.0.0" = rec {
+      "autocfg" = rec {
         crateName = "autocfg";
         version = "1.0.0";
         edition = "2015";
@@ -853,7 +843,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -912,7 +902,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -1282,16 +1272,6 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" ];
       };
-      "fuchsia-cprng" = rec {
-        crateName = "fuchsia-cprng";
-        version = "0.1.1";
-        edition = "2018";
-        sha256 = "1fnkqrbz7ixxzsb04bsz9p0zzazanma8znfdqjvh39n14vapfvx0";
-        authors = [
-          "Erick Tryzelaar <etryzelaar@google.com>"
-        ];
-        
-      };
       "getrandom" = rec {
         crateName = "getrandom";
         version = "0.1.14";
@@ -1339,6 +1319,19 @@ rec {
           "write" = [ "indexmap" ];
         };
         resolvedDefaultFeatures = [ "read" ];
+      };
+      "half" = rec {
+        crateName = "half";
+        version = "1.6.0";
+        edition = "2018";
+        sha256 = "0xq1qkbfwnxv72b2fakgi5ai0j8arw38whwxgxs3rp1fz28anvyk";
+        authors = [
+          "Kathryn Long <squeeself@gmail.com>"
+        ];
+        features = {
+          "serialize" = [ "serde" ];
+          "std" = [ "alloc" ];
+        };
       };
       "hdf5" = rec {
         crateName = "hdf5";
@@ -1530,7 +1523,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -1810,7 +1803,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -1888,7 +1881,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.7.3";
+            packageId = "rand";
             features = [ "small_rng" ];
           }
           {
@@ -1916,7 +1909,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -1972,7 +1965,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -1993,7 +1986,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
         ];
         features = {
@@ -2158,7 +2151,7 @@ rec {
         buildDependencies = [
           {
             name = "autocfg";
-            packageId = "autocfg 1.0.0";
+            packageId = "autocfg";
           }
           {
             name = "cc";
@@ -2434,81 +2427,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "proc-macro" ];
       };
-      "rand 0.6.5" = rec {
-        crateName = "rand";
-        version = "0.6.5";
-        edition = "2015";
-        sha256 = "1jl4449jcl4wgmzld6ffwqj5gwxrp8zvx8w573g1z368qg6xlwbd";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: target."unix";
-          }
-          {
-            name = "rand_chacha";
-            packageId = "rand_chacha 0.1.1";
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.4.2";
-          }
-          {
-            name = "rand_hc";
-            packageId = "rand_hc 0.1.0";
-          }
-          {
-            name = "rand_isaac";
-            packageId = "rand_isaac";
-          }
-          {
-            name = "rand_jitter";
-            packageId = "rand_jitter";
-          }
-          {
-            name = "rand_os";
-            packageId = "rand_os";
-            optional = true;
-          }
-          {
-            name = "rand_pcg";
-            packageId = "rand_pcg 0.1.2";
-          }
-          {
-            name = "rand_xorshift";
-            packageId = "rand_xorshift 0.1.1";
-          }
-          {
-            name = "winapi";
-            packageId = "winapi";
-            target = { target, features }: target."windows";
-            features = [ "minwindef" "ntsecapi" "profileapi" "winnt" ];
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "autocfg";
-            packageId = "autocfg 0.1.7";
-          }
-        ];
-        features = {
-          "alloc" = [ "rand_core/alloc" ];
-          "default" = [ "std" ];
-          "nightly" = [ "simd_support" ];
-          "serde1" = [ "rand_core/serde1" "rand_isaac/serde1" "rand_xorshift/serde1" ];
-          "simd_support" = [ "packed_simd" ];
-          "std" = [ "rand_core/std" "alloc" "rand_os" "rand_jitter/std" ];
-          "stdweb" = [ "rand_os/stdweb" ];
-          "wasm-bindgen" = [ "rand_os/wasm-bindgen" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "default" "rand_os" "std" ];
-      };
-      "rand 0.7.3" = rec {
+      "rand" = rec {
         crateName = "rand";
         version = "0.7.3";
         edition = "2018";
@@ -2533,33 +2452,33 @@ rec {
           }
           {
             name = "rand_chacha";
-            packageId = "rand_chacha 0.2.2";
+            packageId = "rand_chacha";
             usesDefaultFeatures = false;
             target = { target, features }: (!(target."os" == "emscripten"));
           }
           {
             name = "rand_core";
-            packageId = "rand_core 0.5.1";
+            packageId = "rand_core";
           }
           {
             name = "rand_hc";
-            packageId = "rand_hc 0.2.0";
+            packageId = "rand_hc";
             target = { target, features }: (target."os" == "emscripten");
           }
           {
             name = "rand_pcg";
-            packageId = "rand_pcg 0.2.1";
+            packageId = "rand_pcg";
             optional = true;
           }
         ];
         devDependencies = [
           {
             name = "rand_hc";
-            packageId = "rand_hc 0.2.0";
+            packageId = "rand_hc";
           }
           {
             name = "rand_pcg";
-            packageId = "rand_pcg 0.2.1";
+            packageId = "rand_pcg";
           }
         ];
         features = {
@@ -2575,31 +2494,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "alloc" "default" "getrandom" "getrandom_package" "libc" "rand_pcg" "small_rng" "std" ];
       };
-      "rand_chacha 0.1.1" = rec {
-        crateName = "rand_chacha";
-        version = "0.1.1";
-        edition = "2015";
-        sha256 = "1vxwyzs4fy1ffjc8l00fsyygpiss135irjf7nyxgq2v0lqf3lvam";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.3.1";
-            usesDefaultFeatures = false;
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "autocfg";
-            packageId = "autocfg 0.1.7";
-          }
-        ];
-        
-      };
-      "rand_chacha 0.2.2" = rec {
+      "rand_chacha" = rec {
         crateName = "rand_chacha";
         version = "0.2.2";
         edition = "2018";
@@ -2618,7 +2513,7 @@ rec {
           }
           {
             name = "rand_core";
-            packageId = "rand_core 0.5.1";
+            packageId = "rand_core";
           }
         ];
         features = {
@@ -2627,44 +2522,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "std" ];
       };
-      "rand_core 0.3.1" = rec {
-        crateName = "rand_core";
-        version = "0.3.1";
-        edition = "2015";
-        sha256 = "0jzdgszfa4bliigiy4hi66k7fs3gfwi2qxn8vik84ph77fwdwvvs";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.4.2";
-          }
-        ];
-        features = {
-          "alloc" = [ "rand_core/alloc" ];
-          "default" = [ "std" ];
-          "serde1" = [ "rand_core/serde1" ];
-          "std" = [ "rand_core/std" ];
-        };
-      };
-      "rand_core 0.4.2" = rec {
-        crateName = "rand_core";
-        version = "0.4.2";
-        edition = "2015";
-        sha256 = "1p09ynysrq1vcdlmcqnapq4qakl2yd1ng3kxh3qscpx09k2a6cww";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        features = {
-          "serde1" = [ "serde" "serde_derive" ];
-          "std" = [ "alloc" ];
-        };
-        resolvedDefaultFeatures = [ "alloc" "std" ];
-      };
-      "rand_core 0.5.1" = rec {
+      "rand_core" = rec {
         crateName = "rand_core";
         version = "0.5.1";
         edition = "2018";
@@ -2697,29 +2555,12 @@ rec {
         dependencies = [
           {
             name = "rand";
-            packageId = "rand 0.7.3";
+            packageId = "rand";
           }
         ];
         
       };
-      "rand_hc 0.1.0" = rec {
-        crateName = "rand_hc";
-        version = "0.1.0";
-        edition = "2015";
-        sha256 = "1i0vl8q5ddvvy0x8hf1zxny393miyzxkwqnw31ifg6p0gdy6fh3v";
-        authors = [
-          "The Rand Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.3.1";
-            usesDefaultFeatures = false;
-          }
-        ];
-        
-      };
-      "rand_hc 0.2.0" = rec {
+      "rand_hc" = rec {
         crateName = "rand_hc";
         version = "0.2.0";
         edition = "2018";
@@ -2730,130 +2571,12 @@ rec {
         dependencies = [
           {
             name = "rand_core";
-            packageId = "rand_core 0.5.1";
+            packageId = "rand_core";
           }
         ];
         
       };
-      "rand_isaac" = rec {
-        crateName = "rand_isaac";
-        version = "0.1.1";
-        edition = "2015";
-        sha256 = "027flpjr4znx2csxk7gxb7vrf9c7y5mydmvg5az2afgisp4rgnfy";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.3.1";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "serde1" = [ "serde" "serde_derive" "rand_core/serde1" ];
-        };
-      };
-      "rand_jitter" = rec {
-        crateName = "rand_jitter";
-        version = "0.1.4";
-        edition = "2015";
-        sha256 = "16z387y46bfz3csc42zxbjq89vcr1axqacncvv8qhyy93p4xarhi";
-        authors = [
-          "The Rand Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "libc";
-            packageId = "libc";
-            usesDefaultFeatures = false;
-            target = { target, features }: ((target."os" == "macos") || (target."os" == "ios"));
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.4.2";
-          }
-          {
-            name = "winapi";
-            packageId = "winapi";
-            target = { target, features }: (target."os" == "windows");
-            features = [ "profileapi" ];
-          }
-        ];
-        features = {
-          "std" = [ "rand_core/std" ];
-        };
-        resolvedDefaultFeatures = [ "std" ];
-      };
-      "rand_os" = rec {
-        crateName = "rand_os";
-        version = "0.1.3";
-        edition = "2015";
-        sha256 = "0wahppm0s64gkr2vmhcgwc0lij37in1lgfxg5rbgqlz0l5vgcxbv";
-        authors = [
-          "The Rand Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "cloudabi";
-            packageId = "cloudabi";
-            target = { target, features }: (target."os" == "cloudabi");
-          }
-          {
-            name = "fuchsia-cprng";
-            packageId = "fuchsia-cprng";
-            target = { target, features }: (target."os" == "fuchsia");
-          }
-          {
-            name = "libc";
-            packageId = "libc";
-            target = { target, features }: target."unix";
-          }
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.4.2";
-            features = [ "std" ];
-          }
-          {
-            name = "rdrand";
-            packageId = "rdrand";
-            target = { target, features }: (target."env" == "sgx");
-          }
-          {
-            name = "winapi";
-            packageId = "winapi";
-            target = { target, features }: target."windows";
-            features = [ "minwindef" "ntsecapi" "winnt" ];
-          }
-        ];
-        
-      };
-      "rand_pcg 0.1.2" = rec {
-        crateName = "rand_pcg";
-        version = "0.1.2";
-        edition = "2015";
-        sha256 = "0i0bdla18a8x4jn1w0fxsbs3jg7ajllz6azmch1zw33r06dv1ydb";
-        authors = [
-          "The Rand Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.4.2";
-          }
-        ];
-        buildDependencies = [
-          {
-            name = "autocfg";
-            packageId = "autocfg 0.1.7";
-          }
-        ];
-        features = {
-          "serde1" = [ "serde" "serde_derive" ];
-        };
-      };
-      "rand_pcg 0.2.1" = rec {
+      "rand_pcg" = rec {
         crateName = "rand_pcg";
         version = "0.2.1";
         edition = "2018";
@@ -2864,34 +2587,14 @@ rec {
         dependencies = [
           {
             name = "rand_core";
-            packageId = "rand_core 0.5.1";
+            packageId = "rand_core";
           }
         ];
         features = {
           "serde1" = [ "serde" ];
         };
       };
-      "rand_xorshift 0.1.1" = rec {
-        crateName = "rand_xorshift";
-        version = "0.1.1";
-        edition = "2015";
-        sha256 = "0p2x8nr00hricpi2m6ca5vysiha7ybnghz79yqhhx6sl4gkfkxyb";
-        authors = [
-          "The Rand Project Developers"
-          "The Rust Project Developers"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.3.1";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "serde1" = [ "serde" "serde_derive" ];
-        };
-      };
-      "rand_xorshift 0.2.0" = rec {
+      "rand_xorshift" = rec {
         crateName = "rand_xorshift";
         version = "0.2.0";
         edition = "2018";
@@ -2903,7 +2606,7 @@ rec {
         dependencies = [
           {
             name = "rand_core";
-            packageId = "rand_core 0.5.1";
+            packageId = "rand_core";
           }
         ];
         features = {
@@ -2978,26 +2681,6 @@ rec {
           }
         ];
         
-      };
-      "rdrand" = rec {
-        crateName = "rdrand";
-        version = "0.4.0";
-        edition = "2015";
-        sha256 = "1cjq0kwx1bk7jx3kzyciiish5gqsj7620dm43dc52sr8fzmm9037";
-        authors = [
-          "Simonas Kazlauskas <rdrand@kazlauskas.me>"
-        ];
-        dependencies = [
-          {
-            name = "rand_core";
-            packageId = "rand_core 0.3.1";
-            usesDefaultFeatures = false;
-          }
-        ];
-        features = {
-          "default" = [ "std" ];
-        };
-        resolvedDefaultFeatures = [ "default" "std" ];
       };
       "redox_syscall" = rec {
         crateName = "redox_syscall";
@@ -3215,9 +2898,9 @@ rec {
       };
       "sentencepiece" = rec {
         crateName = "sentencepiece";
-        version = "0.3.1";
+        version = "0.3.2";
         edition = "2018";
-        sha256 = "1rp97ayil8phmb6r5dnm5jyyhzj4aad7rj4885nlwjklshgcz8za";
+        sha256 = "1drn65sjjpdbsv7qyi3qg2lscsxw9n5ahz883gvyafpg2lyx23rv";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
         ];
@@ -3253,9 +2936,9 @@ rec {
       };
       "sentencepiece-sys" = rec {
         crateName = "sentencepiece-sys";
-        version = "0.3.0";
+        version = "0.3.2";
         edition = "2018";
-        sha256 = "0c0jr1r6abi3bgic69d0bvr1x98prb796mlbji9h2pyr2d6xaipr";
+        sha256 = "08svllzw1f0ygvzr2kr94i4ifgvm8gjaii747siw31gpx5jq7nqr";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
         ];
@@ -3509,9 +3192,9 @@ rec {
       };
       "sticker-transformers" = rec {
         crateName = "sticker-transformers";
-        version = "0.7.0";
+        version = "0.8.0";
         edition = "2018";
-        sha256 = "1qkbpcm9pj9kqgmy05xjmqrlqds83bdar9plzvf2krqagn1klf3d";
+        sha256 = "11nbj7bxlklnkbpnmcqnyr20h7g45b8576szfrs0fy1v4vd8agjm";
         authors = [
           "Daniël de Kok <me@danieldk.eu>"
         ];
@@ -3543,7 +3226,7 @@ rec {
       };
       "sticker2" = rec {
         crateName = "sticker2";
-        version = "0.3.1";
+        version = "0.4.1";
         edition = "2018";
         src = (builtins.filterSource sourceFilter ./sticker2);
         authors = [
@@ -3581,11 +3264,11 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.7.3";
+            packageId = "rand";
           }
           {
             name = "rand_xorshift";
-            packageId = "rand_xorshift 0.2.0";
+            packageId = "rand_xorshift";
           }
           {
             name = "sentencepiece";
@@ -3652,7 +3335,7 @@ rec {
       };
       "sticker2-utils" = rec {
         crateName = "sticker2-utils";
-        version = "0.3.1";
+        version = "0.4.1";
         edition = "2018";
         crateBin = [
           { name = "sticker2"; path = "src/main.rs"; }
@@ -3805,16 +3488,16 @@ rec {
       };
       "tch" = rec {
         crateName = "tch";
-        version = "0.1.7";
+        version = "0.2.0";
         edition = "2018";
-        sha256 = "1rdjl1fz0mpbyyp38d612dkbw3inq70bylpcb9shiz5x7jfmknn3";
+        sha256 = "01w4hfrppnkajq90v1bhrjp68844058znasqix5ykv0yrlng68v0";
         authors = [
           "Laurent Mazare <lmazare@gmail.com>"
         ];
         dependencies = [
           {
-            name = "failure";
-            packageId = "failure";
+            name = "half";
+            packageId = "half";
           }
           {
             name = "lazy_static";
@@ -3830,7 +3513,11 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand 0.6.5";
+            packageId = "rand";
+          }
+          {
+            name = "thiserror";
+            packageId = "thiserror";
           }
           {
             name = "torch-sys";
@@ -4045,9 +3732,9 @@ rec {
       };
       "torch-sys" = rec {
         crateName = "torch-sys";
-        version = "0.1.7";
+        version = "0.2.0";
         edition = "2018";
-        sha256 = "0hysfgwrxrw0aldgp0gs9va4kgvbb23yl3jpzwnr7qqa03g0hygm";
+        sha256 = "1ikjhazl7pg80x77b0757z33851lazpyhhnhxfc11qwvg6wdk04q";
         authors = [
           "Laurent Mazare <lmazare@gmail.com>"
         ];
@@ -4811,7 +4498,7 @@ rec {
         features = {
           "debug" = [ "impl-debug" ];
         };
-        resolvedDefaultFeatures = [ "consoleapi" "errhandlingapi" "fileapi" "handleapi" "impl-debug" "impl-default" "ktmw32" "libloaderapi" "lmcons" "minschannel" "minwinbase" "minwindef" "ntdef" "ntsecapi" "ntstatus" "processenv" "profileapi" "schannel" "securitybaseapi" "sspi" "std" "sysinfoapi" "timezoneapi" "winbase" "wincon" "wincrypt" "winerror" "winnt" "winreg" "winsock2" "winuser" "ws2def" "ws2ipdef" "ws2tcpip" ];
+        resolvedDefaultFeatures = [ "consoleapi" "errhandlingapi" "fileapi" "handleapi" "impl-debug" "impl-default" "ktmw32" "libloaderapi" "lmcons" "minschannel" "minwinbase" "minwindef" "ntdef" "ntstatus" "processenv" "profileapi" "schannel" "securitybaseapi" "sspi" "std" "sysinfoapi" "timezoneapi" "winbase" "wincon" "wincrypt" "winerror" "winnt" "winreg" "winsock2" "winuser" "ws2def" "ws2ipdef" "ws2tcpip" ];
       };
       "winapi-i686-pc-windows-gnu" = rec {
         crateName = "winapi-i686-pc-windows-gnu";
