@@ -40,7 +40,7 @@ in rec {
   );
 
   sticker2 = pkgs.callPackage ./pkgs/sticker2 {
-    libtorch = libtorch.v1_5_1;
+    libtorch = libtorch.v1_6_0;
 
     sentencepiece = pkgs.sentencepiece.override {
       withGPerfTools = false;
