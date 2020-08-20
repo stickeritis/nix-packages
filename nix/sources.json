@@ -1,4 +1,16 @@
 {
+    "nixos-generators": {
+        "branch": "master",
+        "description": "Collection of image builders [maintainer=@Lassulus]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "2094f0de8a7ad33f00c95775dc69ebdd6c760db5",
+        "sha256": "1bw9r7gcakpwxjmniwcfvfq3f3vryf1r22ssd30077ila35vj1h0",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/nixos-generators/archive/2094f0de8a7ad33f00c95775dc69ebdd6c760db5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs": {
         "branch": "nixos-unstable",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",

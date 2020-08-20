@@ -1,8 +1,16 @@
-{ lib, recurseIntoAttrs, stdenvNoCC, fetchurl, dockerTools, makeWrapper, sticker2 }:
+{ lib
+, recurseIntoAttrs
+, stdenvNoCC
+, fetchurl
+, dockerTools
+, generateImages
+, makeWrapper
+, sticker2
+}:
 
 let
   stickerModel = import ./model.nix {
-    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker2;
+    inherit lib stdenvNoCC fetchurl dockerTools generateImages makeWrapper sticker2;
   };
 in lib.mapAttrs (_: value: recurseIntoAttrs value) {
   de-ud-huge = stickerModel {

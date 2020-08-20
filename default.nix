@@ -1,7 +1,10 @@
-{ pkgs ? import (import ./nix/sources.nix).nixpkgs {} }:
+{ pkgs ? import (import nix/sources.nix).nixpkgs {} }:
 
 let
-  sources = import ./nix/sources.nix;
+  sources = import nix/sources.nix;
+  generateImages = import nixos/generate-images.nix {
+    inherit (sources) nixpkgs nixos-generators;
+  };
 in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; };
@@ -29,7 +32,7 @@ in rec {
 
   sticker_models = pkgs.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/sticker_models {
-      inherit sticker;
+      inherit generateImages sticker;
     }
   );
 
@@ -49,6 +52,7 @@ in rec {
 
   sticker2_models = pkgs.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/sticker2_models {
+      inherit generateImages;
       sticker2 = sticker2.override { withHdf5 = false; };
     }
   );

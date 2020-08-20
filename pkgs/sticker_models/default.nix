@@ -1,8 +1,8 @@
-{ lib, recurseIntoAttrs, stdenvNoCC, fetchurl, dockerTools, makeWrapper, sticker }:
+{ lib, recurseIntoAttrs, stdenvNoCC, fetchurl, dockerTools, generateImages, makeWrapper, sticker }:
 
 let
   stickerModel = import ./model.nix {
-    inherit lib stdenvNoCC fetchurl dockerTools makeWrapper sticker;
+    inherit lib stdenvNoCC fetchurl dockerTools generateImages makeWrapper sticker;
   };
   # Embeddings fetcher, uses the sticker-models repository.
   fetchEmbeddings = { name, sha256 }: {
