@@ -8,6 +8,7 @@
 , fetchurl
 
 , dockerTools
+, generateImages
 , makeWrapper
 
 , sticker
@@ -76,6 +77,14 @@ rec {
       platforms = platforms.unix;
     };
   };
+
+  vmImages = generateImages (import ../../nixos/vm-configuration.nix {
+    runCommand = ''
+      ${sticker}/bin/sticker server \
+        --addr 0.0.0.0:4000 \
+        "${model}/share/sticker/models/${modelName}/sticker.conf"
+    '';
+  });
 
   wrapper = stdenvNoCC.mkDerivation rec {
     inherit version;
