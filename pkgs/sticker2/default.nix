@@ -8,6 +8,7 @@
 
 # Native build inputs
 , installShellFiles ? null # Available in 19.09 and later.
+, patchelf
 , pkgconfig
 , removeReferencesTo
 , symlinkJoin
@@ -23,6 +24,7 @@
 }:
 
 let
+  libfakeintel = callPackage ./libfakeintel {};
   sticker_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
@@ -55,8 +57,9 @@ let
 
       src = "${sticker_src}/sticker2-utils";
 
-      nativeBuildInputs = [ removeReferencesTo ] ++
-        lib.optional (!isNull installShellFiles) installShellFiles;
+      nativeBuildInputs = [ removeReferencesTo ]
+        ++ lib.optional stdenv.isLinux patchelf
+        ++ lib.optional (!isNull installShellFiles) installShellFiles;
 
       buildInputs = [ libtorch ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
@@ -77,6 +80,11 @@ let
       '' + lib.optionalString (!isNull installShellFiles) ''
         # Install shell completions
         installShellCompletion completions.{bash,fish,zsh}
+      '';
+
+      postFixup = lib.optionalString stdenv.isLinux ''
+        patchelf --add-needed ${libfakeintel}/lib/libfakeintel.so \
+          $out/bin/sticker2
       '';
 
       disallowedReferences = [ libtorch.dev ];
