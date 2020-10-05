@@ -49,7 +49,10 @@ in rec {
   sticker2_models = pkgs.recurseIntoAttrs (
     pkgs.callPackage ./pkgs/sticker2_models {
       inherit generateImages;
-      sticker2 = sticker2.override { withHdf5 = false; };
+      sticker2 = sticker2.override {
+        withHdf5 = false;
+        withTFRecord = false;
+      };
     }
   );
 }

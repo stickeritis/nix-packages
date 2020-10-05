@@ -89,7 +89,7 @@ rec {
     '';
 
     meta = with stdenvNoCC.lib; {
-      homepage = https://github.com/danieldk/sticker/;
+      homepage = https://github.com/danieldk/sticker2/;
       description = "sticker2 ${modelName} model wrapper";
       license = licenses.unfreeRedistributable;
       maintainers = with maintainers; [ danieldk ];
