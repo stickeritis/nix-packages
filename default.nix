@@ -1,4 +1,4 @@
-{ pkgs ? import (import nix/sources.nix).nixpkgs {} }:
+{ pkgs ? import nix/nixpkgs.nix }:
 
 let
   sources = import nix/sources.nix;
@@ -16,10 +16,6 @@ in rec {
     inherit (linuxPackages) nvidia_x11;
     cudatoolkit = cudatoolkit_10_1;
     cudnn = cudnn_cudatoolkit_10_1;
-  };
-
-  libtorch = pkgs.callPackage ./pkgs/libtorch {
-    inherit (pkgs.linuxPackages) nvidia_x11;
   };
 
   python3Packages = pkgs.recurseIntoAttrs (
@@ -43,7 +39,7 @@ in rec {
   );
 
   sticker2 = pkgs.callPackage ./pkgs/sticker2 {
-    libtorch = libtorch.v1_6_0;
+    libtorch = pkgs.libtorch-bin;
 
     sentencepiece = pkgs.sentencepiece.override {
       withGPerfTools = false;
