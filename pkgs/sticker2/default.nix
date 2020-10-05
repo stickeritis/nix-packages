@@ -8,7 +8,6 @@
 
 # Native build inputs
 , installShellFiles ? null # Available in 19.09 and later.
-, patchelf
 , pkgconfig
 , removeReferencesTo
 , symlinkJoin
@@ -21,6 +20,7 @@
 , sentencepiece
 
 , withHdf5 ? true
+, withTFRecord ? true
 }:
 
 let
@@ -28,8 +28,8 @@ let
   sticker_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
-    rev = "0.4.2";
-    sha256 = "0y5vabqwp8ggfsl1zzsz11qwjiv0aknwrypf704b30qp1fk5axib";
+    rev = "0.5.1";
+    sha256 = "0lk2c57vrav5hdlvb27lvw4ycp2wrp0zl60vbsqfldcv96ksmiks";
   };
   cargo_nix = callPackage ./Cargo.nix {
     buildRustCrate = buildRustCrate.override {
@@ -58,7 +58,6 @@ let
       src = "${sticker_src}/sticker2-utils";
 
       nativeBuildInputs = [ removeReferencesTo ]
-        ++ lib.optional stdenv.isLinux patchelf
         ++ lib.optional (!isNull installShellFiles) installShellFiles;
 
       buildInputs = [ libtorch ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
@@ -82,11 +81,6 @@ let
         installShellCompletion completions.{bash,fish,zsh}
       '';
 
-      postFixup = lib.optionalString stdenv.isLinux ''
-        patchelf --add-needed ${libfakeintel}/lib/libfakeintel.so \
-          $out/bin/sticker2
-      '';
-
       disallowedReferences = [ libtorch.dev ];
 
       meta = with stdenv.lib; {
@@ -104,5 +98,6 @@ let
     };
   };
 in cargo_nix.workspaceMembers.sticker2-utils.build.override {
-  features = lib.optional withHdf5 "load-hdf5";
+  features = lib.optionals withHdf5 [ "load-hdf5" ]
+    ++ lib.optionals withTFRecord [ "tfrecord" ];
 }
