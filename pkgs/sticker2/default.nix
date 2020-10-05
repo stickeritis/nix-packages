@@ -7,7 +7,7 @@
 , fetchFromGitHub
 
 # Native build inputs
-, installShellFiles ? null # Available in 19.09 and later.
+, installShellFiles
 , pkgconfig
 , removeReferencesTo
 , symlinkJoin
@@ -57,8 +57,10 @@ let
 
       src = "${sticker_src}/sticker2-utils";
 
-      nativeBuildInputs = [ removeReferencesTo ]
-        ++ lib.optional (!isNull installShellFiles) installShellFiles;
+      nativeBuildInputs = [
+        installShellFiles
+        removeReferencesTo
+      ];
 
       buildInputs = [ libtorch ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
@@ -73,12 +75,12 @@ let
         # the library ensures that we don't get any stray references.
         rm -rf $lib/lib
 
+        # Install shell completions
+        installShellCompletion completions.{bash,fish,zsh}
+
         # libtorch' headers use the __FILE__ macro in exceptions, this
         # creates a false dependency on the libtorch dev output.
         remove-references-to -t ${libtorch.dev} $out/bin/sticker2
-      '' + lib.optionalString (!isNull installShellFiles) ''
-        # Install shell completions
-        installShellCompletion completions.{bash,fish,zsh}
       '';
 
       disallowedReferences = [ libtorch.dev ];
