@@ -24,8 +24,7 @@
 }:
 
 let
-  libfakeintel = callPackage ./libfakeintel {};
-  sticker_src = fetchFromGitHub {
+  sticker2_src = fetchFromGitHub {
     owner = "stickeritis";
     repo = "sticker2";
     rev = "0.5.1";
@@ -49,26 +48,21 @@ let
       buildInputs = [ sentencepiece ];
     };
 
-    sticker2 = attr: { src = "${sticker_src}/sticker2"; };
+    sticker2 = attr: { src = "${sticker2_src}/sticker2"; };
 
     sticker2-utils = attr: rec {
       pname = "sticker2";
       name = "${pname}-${attr.version}";
 
-      src = "${sticker_src}/sticker2-utils";
+      src = "${sticker2_src}/sticker2-utils";
 
       nativeBuildInputs = [
         installShellFiles
         removeReferencesTo
       ];
 
-      buildInputs = [ libtorch ] ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
-
-      postBuild = ''
-        for shell in bash fish zsh; do
-          target/bin/sticker2 completions $shell > completions.$shell
-        done
-      '';
+      buildInputs = [ libtorch ]
+        ++ stdenv.lib.optional stdenv.isDarwin darwin.Security;
 
       postInstall = ''
         # We do not care for sticker2-utils as a library crate. Removing
@@ -76,6 +70,10 @@ let
         rm -rf $lib/lib
 
         # Install shell completions
+        for shell in bash fish zsh; do
+          target/bin/sticker2 completions $shell > completions.$shell
+        done
+
         installShellCompletion completions.{bash,fish,zsh}
 
         # libtorch' headers use the __FILE__ macro in exceptions, this
@@ -87,7 +85,7 @@ let
 
       meta = with stdenv.lib; {
         description = "Neural sequence labeler";
-        license = licenses.asl20;
+        license = licenses.blueOak100;
         maintainers = with maintainers; [ danieldk ];
         platforms = platforms.all;
       };
