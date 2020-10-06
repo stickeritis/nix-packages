@@ -4,7 +4,7 @@
 
 , buildRustCrate
 , defaultCrateOverrides
-, fetchFromGitHub
+, fetchCrate
 
 # Native build inputs
 , installShellFiles
@@ -22,25 +22,29 @@
 }:
 
 let
-  sticker2_src = fetchFromGitHub {
-    owner = "stickeritis";
-    repo = "sticker2";
-    rev = "0.5.1";
-    sha256 = "0lk2c57vrav5hdlvb27lvw4ycp2wrp0zl60vbsqfldcv96ksmiks";
-  };
   cargo_nix = callPackage ./Cargo.nix {
     buildRustCrate = buildRustCrate.override {
       defaultCrateOverrides = crateOverrides;
     };
   };
   crateOverrides = defaultCrateOverrides // {
-    sticker2 = attr: { src = "${sticker2_src}/sticker2"; };
+    sticker2 = attr: {
+      src = fetchCrate {
+        crateName = "sticker2";
+        version = attr.version;
+        sha256 = "0ivg1wgk700x0xgvallpr8kfyk12rvxkrryjv6z6aj58rwvp54n3";
+      };
+    };
 
     sticker2-utils = attr: rec {
       pname = "sticker2";
       name = "${pname}-${attr.version}";
 
-      src = "${sticker2_src}/sticker2-utils";
+      src = fetchCrate {
+        crateName = "sticker2-utils";
+        version = attr.version;
+        sha256 = "1qh1pfd36ryws9gqli912346lbc4b2shw308bld3078kib69gasb";
+      };
 
       nativeBuildInputs = [
         installShellFiles
