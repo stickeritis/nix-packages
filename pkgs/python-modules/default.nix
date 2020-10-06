@@ -1,5 +1,5 @@
-{ callPackage }:
+{ callPackage, toPythonModule }:
 
 {
-  sticker = callPackage ./sticker {};
+  sticker = toPythonModule (callPackage ./sticker {});
 }
