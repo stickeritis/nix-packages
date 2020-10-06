@@ -8,18 +8,16 @@
 
 # Native build inputs
 , installShellFiles
-, pkgconfig
 , removeReferencesTo
-, symlinkJoin
 
 # Build inputs
-, curl
 , darwin
-, hdf5
 , libtorch
-, sentencepiece
 
+# Build with HDF5 support.
 , withHdf5 ? true
+
+# Build with TensorBoard support.
 , withTFRecord ? true
 }:
 
@@ -36,18 +34,6 @@ let
     };
   };
   crateOverrides = defaultCrateOverrides // {
-    hdf5-sys = attr: {
-      # Unless we use pkg-config, the hdf5-sys build script does not like
-      # it if libraries and includes are in different directories.
-      HDF5_DIR = symlinkJoin { name = "hdf5-join"; paths = [ hdf5.dev hdf5.out ]; };
-    };
-
-    sentencepiece-sys = attr: {
-      nativeBuildInputs = [ pkgconfig ];
-
-      buildInputs = [ sentencepiece ];
-    };
-
     sticker2 = attr: { src = "${sticker2_src}/sticker2"; };
 
     sticker2-utils = attr: rec {
@@ -76,8 +62,6 @@ let
 
         installShellCompletion completions.{bash,fish,zsh}
 
-        # libtorch' headers use the __FILE__ macro in exceptions, this
-        # creates a false dependency on the libtorch dev output.
         remove-references-to -t ${libtorch.dev} $out/bin/sticker2
       '';
 
@@ -89,12 +73,6 @@ let
         maintainers = with maintainers; [ danieldk ];
         platforms = platforms.all;
       };
-    };
-
-    torch-sys = attr: {
-      buildInputs = stdenv.lib.optional stdenv.isDarwin curl;
-
-      LIBTORCH = libtorch.dev;
     };
   };
 in cargo_nix.workspaceMembers.sticker2-utils.build.override {

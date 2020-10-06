@@ -11,6 +11,10 @@ in rec {
   modules = import ./modules;
   overlays = import ./overlays;
 
+  defaultCrateOverrides = pkgs.callPackage build-support/crate-overrides.nix {
+    libtorch = pkgs.libtorch-bin;
+  };
+
   # Pin Tensorflow to our preferred version.
   libtensorflow = with pkgs; callPackage ./pkgs/libtensorflow {
     inherit (linuxPackages) nvidia_x11;
@@ -39,11 +43,8 @@ in rec {
   );
 
   sticker2 = pkgs.callPackage ./pkgs/sticker2 {
+    inherit defaultCrateOverrides;
     libtorch = pkgs.libtorch-bin;
-
-    sentencepiece = pkgs.sentencepiece.override {
-      withGPerfTools = false;
-    };
   };
 
   sticker2_models = pkgs.recurseIntoAttrs (
