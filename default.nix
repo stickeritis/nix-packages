@@ -12,6 +12,8 @@ in rec {
   overlays = import ./overlays;
 
   defaultCrateOverrides = pkgs.callPackage build-support/crate-overrides.nix {
+    inherit libtensorflow;
+
     libtorch = pkgs.libtorch-bin;
   };
 
@@ -27,7 +29,7 @@ in rec {
   );
 
   sticker = pkgs.callPackage ./pkgs/sticker {
-    inherit libtensorflow;
+    inherit defaultCrateOverrides;
   };
 
   sticker_models = pkgs.recurseIntoAttrs (

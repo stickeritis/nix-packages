@@ -1,7 +1,6 @@
 { pkgs
 , stdenv
 , callPackage
-, defaultCrateOverrides
 , fetchFromGitHub
 
   # Native build inputs

@@ -61,12 +61,5 @@ let
         platforms = platforms.all;
       };
     };
-
-    tensorflow-sys = attrs: {
-      nativeBuildInputs = [ pkgconfig ];
-
-      buildInputs = [ libtensorflow ] ++
-        stdenv.lib.optional stdenv.isDarwin curl;
-    };
   };
 in cargo_nix.workspaceMembers.sticker-utils.build
