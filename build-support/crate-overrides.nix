@@ -9,6 +9,7 @@
 # Build inputs
 , curl
 , hdf5
+, libtensorflow
 , libtorch
 , sentencepiece
 }:
@@ -25,6 +26,13 @@ defaultCrateOverrides // {
       buildInputs = [
         (sentencepiece.override { withGPerfTools = false; })
       ];
+    };
+
+    tensorflow-sys = attrs: {
+      nativeBuildInputs = [ pkg-config ];
+
+      buildInputs = [ libtensorflow ] ++
+        stdenv.lib.optional stdenv.isDarwin curl;
     };
 
     torch-sys = attr: {
